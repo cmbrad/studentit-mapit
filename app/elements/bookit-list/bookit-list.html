@@ -1,0 +1,79 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../list-header/list-header.html">
+
+<dom-module id="bookit-list">
+	<link rel="import" type="css" href="bookit-list.css">
+
+	<template>
+		<template is="dom-repeat" items="[[sites]]" as="site">
+			<template is="dom-repeat" items="[[site.locations]]" as="location">
+				<div class="list" role="list">
+        <list-header name="[[location.name]]" free="{{freeResources(location.resources)}}" total="[[totalResources(location.resources)]]"></list-header>
+
+	<paper-menu class="list" on-iron-activate="_listTap">
+				<template is="dom-repeat" items="[[location.resources]]" as="resource">
+					<paper-item>
+						<div class$="{{iconColour(resource.state)}}" item-icon></div>
+						<div class="item_name">[[resource.name]]</div>
+					</paper-item>
+				</template>
+	</paper-menu>
+				</div>
+			</template>
+		</template>
+	</template>
+
+	<script>
+		Polymer({
+			is: 'bookit-list',
+
+			properties: {
+				sites: {
+				
+				}
+			},
+
+			freeResources: function(resources) {
+				var free = 0;
+
+				for (var i in resources) {
+					var resource = resources[i];
+
+					if (resource.state === 'AVAILABLE') {
+						free += 1;
+					}
+				}
+
+				return free;
+			},
+
+			totalResources: function(resources) {
+				return resources.length;
+			},
+
+			iconColour: function(state) {
+				if (state === 'AVAILABLE') {
+					return 'avatar green';
+				} else if (state === 'NOT_AVAILABLE') {
+					return 'avatar black';
+				} else if (state === 'RESERVED') {
+					return 'avatar yellow';
+				} else if (state === 'IN_USE') {
+					return 'avatar red';
+				}
+
+				return 'avatar blue';
+			}
+		});
+	</script>
+</dom-module>
