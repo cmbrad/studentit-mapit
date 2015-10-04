@@ -31,7 +31,7 @@ Left Nav + List + Detail
 	<link rel="import" type="css" href="mapit-app.css">
 
 	<template id="app">
-		<bookit-data id="bookit_data" site="[[route]]" sites="{{sites}}"></bookit-data>
+		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}"></bookit-data>
 
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
 			<div class="nav" drawer>
@@ -39,45 +39,45 @@ Left Nav + List + Detail
 					<span class="paper-font-title">Menu</span>
 				</paper-toolbar>
 
-				<paper-menu class="lib_list" attr-for-selected="data-route" selected="[[route]]">
-					<paper-item>
-						<a data-route="architecture" href="/architecture">
+				<paper-menu class="lib_list" attr-for-selected="data-route" selected="{{route}}">
+					<paper-item data-route="architecture">
+						<a href="/architecture">
 							<iron-icon icon="info"></iron-icon>
 							<span>Architecture</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="baillieu" href="/baillieu">
+					<paper-item data-route="baillieu">
+						<a href="/baillieu">
 							<iron-icon icon="info"></iron-icon>
 							<span>Baillieu</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="brownless" href="/brownless">
+					<paper-item data-route="brownless">
+						<a href="/brownless">
 							<iron-icon icon="info"></iron-icon>
 							<span>Brownless</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="erc" href="/erc">
+					<paper-item data-route="erc">
+						<a href="/erc">
 							<iron-icon icon="info"></iron-icon>
 							<span>ERC</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="giblin_eunson" href="/giblin_eunson">
+					<paper-item data-route="giblin_eunson">
+						<a href="/giblin_eunson">
 							<iron-icon icon="info"></iron-icon>
 							<span>Giblin Eunson</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="law" href="/law">
+					<paper-item data-route="law">
+						<a href="/law">
 							<iron-icon icon="info"></iron-icon>
 							<span>Law</span>
 						</a>
 					</paper-item>
-					<paper-item>
-						<a data-route="lenton_parr" href="/lenton_parr">
+					<paper-item data-route="lenton_parr" >
+						<a href="/lenton_parr">
 							<iron-icon icon="info"></iron-icon>
 							<span>Lenton Parr</span>
 						</a>
