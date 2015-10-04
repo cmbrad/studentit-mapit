@@ -11,17 +11,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script src="../bower_components/page/page.js"></script>
 <script>
   window.addEventListener('WebComponentsReady', function() {
+    var bookit = document.querySelector('#bookit_data');
 
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
     // More info: https://visionmedia.github.io/page.js/
     page('/', function () {
-      app.route = 'home';
+      bookit.site = '';
       app.scrollPageToTop();
     });
 
-    page('/users', function () {
-      app.route = 'users';
+    page('/architecture', function () {
+      bookit.site = 'architecture';
+      app.scrollPageToTop();
+    });
+
+    page('/baillieu', function () {
+      bookit.site = 'baillieu';
+      app.scrollPageToTop();
+    });
+
+    page('/brownless', function () {
+      bookit.site = 'brownless';
+      app.scrollPageToTop();
+    });
+
+    page('/erc', function () {
+      bookit.site = 'erc';
+      app.scrollPageToTop();
+    });
+
+    page('/giblin_eunson', function () {
+      bookit.site = 'giblin_eunson';
+      app.scrollPageToTop();
+    });
+
+    page('/law', function () {
+      bookit.site = 'law';
+      app.scrollPageToTop();
+    });
+
+    page('/lenton_parr', function () {
+      bookit.site = 'lenton_parr';
       app.scrollPageToTop();
     });
 

@@ -11,15 +11,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="bookit-map">
-  <template>
-    <style>
-      :host {
-        display: block;
-      }
-    </style>
+	<template>
+		<style>
+			:host {
+				display: block;
+				height: 100%;
+			}
 
-	<span>I am actually a map.</span>
-  </template>
+			#container {
+				display: flex;
+				height: 100%;
+				align-items: center;
+				justify-content: center;
+
+				background-color: #E0E0E0;
+				font-size: 24px;
+			}
+		</style>
+
+		<div id="container">
+			<div>Map</div>
+		</div>
+	</template>
 
   <script>
   (function() {

@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 
+<link rel="import" href="../routing.html">
+
 <link rel="import" href="../bookit-data/bookit-data.html">
 <link rel="import" href="../bookit-list/bookit-list.html">
 
@@ -26,40 +28,62 @@ Left Nav + List + Detail
 
  -->
 <dom-module id="mapit-app">
+	<link rel="import" type="css" href="mapit-app.css">
 
-  <link rel="import" type="css" href="mapit-app.css">
+	<template id="app">
+		<bookit-data id="bookit_data" site="[[route]]" sites="{{sites}}"></bookit-data>
 
-  <template id="app">
-    <bookit-data site="2" sites="{{sites}}"></bookit-data>
+		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
+			<div class="nav" drawer>
+				<paper-toolbar id="drawerToolbar">
+					<span class="paper-font-title">Menu</span>
+				</paper-toolbar>
 
-    <paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
-
-      <div class="nav" drawer>
-<!-- Drawer Toolbar -->
-        <paper-toolbar id="drawerToolbar">
-          <span class="paper-font-title">Menu</span>
-        </paper-toolbar>
-
-        <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
-          <a data-route="home" href="/" on-click="onDataRouteClick">
-            <iron-icon icon="home"></iron-icon>
-            <span>Libraries</span>
-          </a>
-
-          <a data-route="baillieu" href="/baillieu" on-click="onDataRouteClick">
-            <iron-icon icon="info"></iron-icon>
-            <span>Baillieu</span>
-          </a>
-
-          <a data-route="erc" href="/erc" on-click="onDataRouteClick">
-            <iron-icon icon="info"></iron-icon>
-            <span>ERC</span>
-          </a>
-        </paper-menu>
-
-        <!-- Nav Content -->
-      </div>
+				<paper-menu class="lib_list" attr-for-selected="data-route" selected="[[route]]">
+					<paper-item>
+						<a data-route="architecture" href="/architecture">
+							<iron-icon icon="info"></iron-icon>
+							<span>Architecture</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="baillieu" href="/baillieu">
+							<iron-icon icon="info"></iron-icon>
+							<span>Baillieu</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="brownless" href="/brownless">
+							<iron-icon icon="info"></iron-icon>
+							<span>Brownless</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="erc" href="/erc">
+							<iron-icon icon="info"></iron-icon>
+							<span>ERC</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="giblin_eunson" href="/giblin_eunson">
+							<iron-icon icon="info"></iron-icon>
+							<span>Giblin Eunson</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="law" href="/law">
+							<iron-icon icon="info"></iron-icon>
+							<span>Law</span>
+						</a>
+					</paper-item>
+					<paper-item>
+						<a data-route="lenton_parr" href="/lenton_parr">
+							<iron-icon icon="info"></iron-icon>
+							<span>Lenton Parr</span>
+						</a>
+					</paper-item>
+				</paper-menu>
+			</div>
 
       <paper-drawer-panel id="mainDrawerPanel" class="main-drawer-panel" main responsive-width="600px"
           drawer-width="[[_computeListWidth(_isMobile)]]" drawer-toggle-attribute="list-toggle"
@@ -92,7 +116,8 @@ Left Nav + List + Detail
           </paper-toolbar>
 
           <!-- Main Content -->
-          <div class="content">
+          <div class="fit">
+            <bookit-map></bookit-map>
           </div>
 
         </paper-header-panel>
@@ -111,7 +136,7 @@ Left Nav + List + Detail
 
       _computeListWidth: function(isMobile) {
         // when in mobile screen size, make the list be 100% width to cover the whole screen
-        return isMobile ? '100%' : '33%';
+        return isMobile ? '100%' : '360px';
       }
 
       //_listTap: function() {

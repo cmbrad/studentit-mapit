@@ -11,17 +11,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="bookit-data">
-  <template>
-    <iron-ajax
-      auto
-      url="http://mapit-proxy.cy.id.au/api.py"
-      params='{{params}}'
-      handle-as="json"
-      last-response="{{sites}}"
-      last-error="{{bookitError}}"></iron-ajax>
+	<template>
+		<iron-ajax
+			auto
+			url="http://mapit-proxy.cy.id.au/api.py"
+			params='{{params}}'
+			handle-as="json"
+			last-response="{{sites}}"
+			last-error="{{bookitError}}">
+		</iron-ajax>
+	</template>
 
-  </template>
-  <script>
+	<script>
 		Polymer({
 			is: 'bookit-data',
 
@@ -31,19 +32,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				site: {
+					type: String
+				},
+
+				siteID: {
+					type: String,
+					computed: 'getSiteID(site)'
 				},
 
 				params: {
 					type: Object,
-					computed: 'makeParams(site)'
+					computed: 'makeParams(siteID)'
 				}
 			},
 
-			makeParams: function(site) {
+			getSiteID: function(site) {
+				var ids = {
+					'architecture':  8,
+					'baillieu':      2,
+					'brownless':    11,
+					'erc':           7,
+					'giblin_eunson': 3,
+					'law':          12,
+					'lenton_parr':   9
+				};
+
+				return ids[site];
+			},
+
+			makeParams: function(siteID) {
 				return {
-					url: 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + site,
+					url: 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + siteID,
 				};
 			}
 		});
-  </script>
+	</script>
 </dom-module>
