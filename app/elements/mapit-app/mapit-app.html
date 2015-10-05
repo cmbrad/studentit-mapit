@@ -39,49 +39,49 @@ Left Nav + List + Detail
 					<span class="paper-font-title">Menu</span>
 				</paper-toolbar>
 
-				<paper-menu class="lib_list" attr-for-selected="data-route" selected="{{route}}">
-					<paper-item data-route="architecture">
-						<a href="/architecture">
+				<paper-menu class="lib_list" attr-for-selected="data-route" selected="{{route}}" on-click="onDataRouteClick">
+					<a data-route="architecture" href="/architecture">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Architecture</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="baillieu">
-						<a href="/baillieu">
+						</paper-item>
+					</a>
+					<a data-route="baillieu" href="/baillieu">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Baillieu</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="brownless">
-						<a href="/brownless">
+						</paper-item>
+					</a>
+					<a data-route="brownless" href="/brownless">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Brownless</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="erc">
-						<a href="/erc">
+						</paper-item>
+					</a>
+					<a data-route="erc" href="/erc">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>ERC</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="giblin_eunson">
-						<a href="/giblin_eunson">
+						</paper-item>
+					</a>
+					<a data-route="giblin_eunson" href="/giblin_eunson">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Giblin Eunson</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="law">
-						<a href="/law">
+						</paper-item>
+					</a>
+					<a data-route="law" href="/law">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Law</span>
-						</a>
-					</paper-item>
-					<paper-item data-route="lenton_parr" >
-						<a href="/lenton_parr">
+						</paper-item>
+					</a>
+					<a data-route="lenton_parr" href="/lenton_parr">
+						<paper-item>
 							<iron-icon icon="info"></iron-icon>
 							<span>Lenton Parr</span>
-						</a>
-					</paper-item>
+						</paper-item>
+					</a>
 				</paper-menu>
 			</div>
 

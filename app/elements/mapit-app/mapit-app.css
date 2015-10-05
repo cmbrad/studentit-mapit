@@ -41,6 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 .lib_list {
 	padding: 0;
+	box-sizing: border-box;
 }
 
 .lib_list paper-item {
@@ -50,8 +51,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	padding: 0 16px;
 }
 
-.lib_list paper-item a {
+.lib_list a {
 	text-decoration: none;
+	width: 100%;
+	display: block;
+}
+
+.lib_list a paper-item {
 	color: var(--menu-link-color);
 	font-family: 'Roboto', 'Noto', sans-serif;
 	-webkit-font-smoothing: antialiased;
@@ -69,8 +75,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	-ms-flex-align: center;
 	-webkit-align-items: center;
 	align-items: center;
-
-	width: 100%;
 }
 
 a iron-icon {
