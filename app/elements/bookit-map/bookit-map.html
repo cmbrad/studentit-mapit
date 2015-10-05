@@ -9,6 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../bower_components/resource-map/resource-map.html">
 
 <dom-module id="bookit-map">
 	<template>
@@ -27,28 +29,130 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				background-color: #E0E0E0;
 				font-size: 24px;
 			}
+
+			#map {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
 		</style>
 
 		<div id="container">
-			<div>Map</div>
+			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll">
+				<div>Map for <span>[[site]]</span></div>
+			</div>
 		</div>
 	</template>
+	
+	<script>
+		(function() {
+			'use strict';
 
-  <script>
-  (function() {
-    'use strict';
+			Polymer({
+				is: 'bookit-map',
 
-    Polymer({
-      is: 'bookit-map',
+				properties: {
+					site: {
+						type: String,
+						observer: '_siteChanged'
+					},
+					map: {
+						type: Object,
+						notify: true,
+						value: null
+					},
+					xPos: {
+						type: Number,
+						value: 0,
+						notify: true,
+						reflectToAttribute: true
+					},
+					yPos: {
+						type: Number,
+						value: 0,
+						notify: true,
+						reflectToAttribute: true
+					},
+					zoom: {
+						type: Number,
+						value: 1.0,
+						observer: '_zoomChanged',
+						notify: true
+					},
+					maxZoom: {
+						type: Number,
+						value: 10.0,
+						notify: true
+					},
+					minZoom: {
+						type: Number,
+						value: 0.2,
+						notify: true
+					}
+				},
 
-      properties: {
-        foo: {
-          type: String,
-          value: 'bookit-map',
-          notify: true
-        }
-      }
-    });
-  })();
-  </script>
+				behaviors: [
+					Polymer.IronResizableBehavior
+				],
+				listeners: {
+					'iron-resize': 'resize'
+				},
+
+				attached: function() {
+					this._initMap();
+				},
+
+				_initMap: function() {
+					if (this.map) {
+						console.log('Map already initialized.');
+						return;
+					}
+					if (!this.isAttached) {
+						console.log('Map is not attached.');
+						return;
+					}
+					/*global ResourceMap */
+					this.map = new ResourceMap(this.site);
+				},
+
+				_zoomChanged: function() {
+					if (this.map) {
+						this.map.setZoom(Number(this.zoom));
+					}
+				},
+
+				_siteChanged: function(newSite, oldSite) {
+					console.log('Site changed from ' + oldSite + ' to ' + newSite);
+					this._initMap();
+				},
+
+				_handleMapTrack: function(e) {
+					switch(e.detail.state) {
+						case 'start':
+							console.log('Tracking started!');
+							break;
+						case 'track':
+							console.log('Tracking in progress... ' +
+							e.detail.x + ', ' + e.detail.y);
+							this.map.movePosition(e.detail.ddx, e.detail.ddy);
+							break;
+						case 'end':
+							console.log('Tracking ended!');
+							break;
+					}
+				},
+
+				_handleMapScroll: function(e) {
+					console.log(e);
+				},
+
+				resize: function() {
+					if(this.map) {
+						this.map.resizeCanvas();
+						
+					}
+				}
+			});
+		})();
+	</script>
 </dom-module>

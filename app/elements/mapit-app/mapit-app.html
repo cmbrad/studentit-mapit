@@ -30,7 +30,7 @@ Left Nav + List + Detail
 <dom-module id="mapit-app">
 	<link rel="import" type="css" href="mapit-app.css">
 
-	<template id="app">
+	<template>
 		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}"></bookit-data>
 
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
@@ -117,7 +117,7 @@ Left Nav + List + Detail
 
           <!-- Main Content -->
           <div class="fit">
-            <bookit-map></bookit-map>
+            <bookit-map site="{{site}}"></bookit-map>
           </div>
 
         </paper-header-panel>

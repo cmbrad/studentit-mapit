@@ -10,7 +10,8 @@
     "page": "visionmedia/page.js#~1.6.3",
     "iron-ajax": "PolymerElements/iron-ajax#~1.0.5",
     "paper-item": "PolymerElements/paper-item#~1.0.3",
-    "paper-menu": "PolymerElements/paper-menu#~1.1.1"
+    "paper-menu": "PolymerElements/paper-menu#~1.1.1",
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#~1.0.2"
   },
   "devDependencies": {
     "web-component-tester": "*",
