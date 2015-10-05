@@ -8,7 +8,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 */
 
 :host {
-  display: block;
+	display: block;
+	height: 100%;
 }
 
 paper-item {
@@ -52,4 +53,17 @@ paper-item {
 
 .green {
 	background-color: var(--paper-green-300);
+}
+
+#loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+paper-spinner {
+	width: 60px;
+	height: 60px;
 }

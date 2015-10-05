@@ -104,7 +104,9 @@ Left Nav + List + Detail
           </paper-toolbar>
 
           <!-- List -->
-          <bookit-list sites="[[sites]]"></bookit-list>
+          <div class="fit">
+            <bookit-list sites="[[sites]]"></bookit-list>
+          </div>
 
         </paper-header-panel>
 
@@ -137,11 +139,15 @@ Left Nav + List + Detail
       _computeListWidth: function(isMobile) {
         // when in mobile screen size, make the list be 100% width to cover the whole screen
         return isMobile ? '100%' : '360px';
-      }
+      },
 
-      //_listTap: function() {
-      //  this.$.mainDrawerPanel.closeDrawer();
-      //}
+      attached: function() {
+        this.$.mainDrawerPanel.disableSwipe = true;
+      },
+
+      _listTap: function() {
+        this.$.mainDrawerPanel.closeDrawer();
+      }
 
     });
 

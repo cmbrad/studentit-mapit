@@ -33,7 +33,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				site: {
 					type: String,
-					notify: true
+					notify: true,
+					observer: '_siteChanged'
 				},
 
 				siteID: {
@@ -45,6 +46,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					type: Object,
 					computed: 'makeParams(siteID)'
 				}
+			},
+
+			_siteChanged: function() {
+				this.sites = [];
 			},
 
 			getSiteID: function(site) {

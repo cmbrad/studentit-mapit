@@ -9,13 +9,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/iron-list/iron-list.html">
-<link rel="import" href="../list-header/list-header.html">
 
 <dom-module id="bookit-list">
 	<link rel="import" type="css" href="bookit-list.css">
 
 	<template>
+		<div id="loading" hidden$="{{!isLoading}}">
+			<paper-spinner alt="Loading resource list" active></paper-spinner>
+		</div>
+		<div id="content" hidden$="{{isLoading}}">
 		<template is="dom-repeat" items="[[sites]]" as="site">
 			<template is="dom-repeat" items="[[site.locations]]" as="location">
 				<div class="list" role="list">
@@ -32,6 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</div>
 			</template>
 		</template>
+		</div>
 	</template>
 
 	<script>
@@ -40,7 +43,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			properties: {
 				sites: {
-				
+					type: Object,
+					value: [],
+					observer: '_sitesChanged'
+				},
+
+				isLoading: {
+					type: Boolean,
+					value: false
+				}
+			},
+
+			_sitesChanged: function(newSites) {
+				if (newSites === null || newSites.length === 0) {
+					console.log('Loading...');
+					this.isLoading = true;
+				} else {
+					console.log('Loaded. - [' + newSites + '].');
+					this.isLoading = false;
 				}
 			},
 
