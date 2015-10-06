@@ -105,7 +105,7 @@ Left Nav + List + Detail
 
           <!-- List -->
           <div class="fit">
-            <bookit-list sites="[[sites]]"></bookit-list>
+            <bookit-list sites="[[sites]]" resource="{{resource}}"></bookit-list>
           </div>
 
         </paper-header-panel>
@@ -119,7 +119,7 @@ Left Nav + List + Detail
 
           <!-- Main Content -->
           <div class="fit">
-            <bookit-map site="{{site}}"></bookit-map>
+            <bookit-map site="{{site}}" resource="[[resource]]"></bookit-map>
           </div>
 
         </paper-header-panel>
@@ -143,6 +143,10 @@ Left Nav + List + Detail
 
       attached: function() {
         this.$.mainDrawerPanel.disableSwipe = true;
+	//document.querySelector('bookit-list').addEventListener('resourceTap', function (e) {
+	//	console.log(e.detail.name); // true
+	//	document.querySelector('bookit-list').resource = e.detail.name;
+	//});
       },
 
       _listTap: function() {

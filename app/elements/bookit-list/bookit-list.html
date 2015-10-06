@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<paper-spinner alt="Loading resource list" active></paper-spinner>
 		</div>
 		<div id="content" hidden$="{{isLoading}}">
+		<list-dropdown></list-dropdown>
 		<template is="dom-repeat" items="[[sites]]" as="site">
 			<template is="dom-repeat" items="[[site.locations]]" as="location">
 				<div class="list" role="list">
@@ -51,6 +52,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				isLoading: {
 					type: Boolean,
 					value: false
+				},
+
+				resource: {
+					type: String,
+					notify: true
 				}
 			},
 
@@ -62,6 +68,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					console.log('Loaded. - [' + newSites + '].');
 					this.isLoading = false;
 				}
+			},
+
+			_listTap: function(e, detail) {
+				this.resource = detail.item.innerText;
 			},
 
 			freeResources: function(resources) {

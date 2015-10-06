@@ -56,6 +56,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: String,
 						observer: '_siteChanged'
 					},
+					resource: {
+						type: String,
+						observer: '_resourceChanged'
+					},
 					map: {
 						type: Object,
 						notify: true,
@@ -107,6 +111,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						console.log('Map already initialized.');
 						return;
 					}
+					if (this.resource === undefined || this.resource === null) {
+						console.log('No resource to display.');
+						return;
+					} else {
+						console.log('Resource [' + this.resource + '].');
+					}
 					if (!this.isAttached) {
 						console.log('Map is not attached.');
 						return;
@@ -123,7 +133,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_siteChanged: function(newSite, oldSite) {
 					console.log('Site changed from ' + oldSite + ' to ' + newSite);
+					this.resource = null;
 					this._initMap();
+				},
+
+				_resourceChanged: function(newR) {
+					this._initMap();
+
+					if (newR !== null) {
+						this.map.centerOnResource(newR);
+					}
 				},
 
 				_handleMapTrack: function(e) {
