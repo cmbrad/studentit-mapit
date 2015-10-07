@@ -87,7 +87,7 @@ Left Nav + List + Detail
 
       <paper-drawer-panel id="mainDrawerPanel" class="main-drawer-panel" main responsive-width="600px"
           drawer-width="[[_computeListWidth(_isMobile)]]" drawer-toggle-attribute="list-toggle"
-          narrow="{{_isMobile}}">
+          narrow="{{_isMobile}}" default-selected="drawer" disable-swipe>
 
         <paper-header-panel class="list-panel" drawer>
 
@@ -142,7 +142,6 @@ Left Nav + List + Detail
       },
 
       attached: function() {
-        this.$.mainDrawerPanel.disableSwipe = true;
 	//document.querySelector('bookit-list').addEventListener('resourceTap', function (e) {
 	//	console.log(e.detail.name); // true
 	//	document.querySelector('bookit-list').resource = e.detail.name;
