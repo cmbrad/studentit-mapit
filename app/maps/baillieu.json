@@ -1,127 +1,915 @@
 {
-	"levels": {
-		"LG": {
-			"filename": "baillieu_lg.png",
-			"order": 0
-		},
-		"G": {
-			"filename": "baillieu_g.png",
-			"order": 1
-		},
-		"1": {
-			"filename": "baillieu_1.png",
-			"order": 2
-		},
-		"2": {
-			"filename": "baillieu_2.png",
-			"order": 3
-		}
-	},
-	"resources": {
-		"Baillieu-LG-01": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-02": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-03": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-04": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-05": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-06": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-07": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-08": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-09": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-10": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-11": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-12": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-13": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-14": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-15": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-16": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-17": {"x": 0, "y": 0, "level": "LG"},
-		"Baillieu-LG-18": {"x": 0, "y": 0, "level": "LG"},
-
-		"Booth 1": {"x": 0, "y": 0, "level": "G"},
-		"Booth 2": {"x": 0, "y": 0, "level": "G"},
-		"Booth 3": {"x": 0, "y": 0, "level": "G"},
-		"Project Room 1": {"x": 0, "y": 0, "level": "G"},
-		"Project Room 2": {"x": 0, "y": 0, "level": "G"},
-		"Project Room 3": {"x": 0, "y": 0, "level": "G"},
-		"Project Room 4": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-01": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-02": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-03": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-04": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-05": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-06": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-07": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-08": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-09": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-10": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-11": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-12": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-13": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-14": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-15": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-16": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-17": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-18": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-19": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-20": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-21": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-22": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-23": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-24": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-25": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-26": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-27": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-28": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-29": {"x": 0, "y": 0, "level": "G"},
-		"Baillieu-G-30": {"x": 0, "y": 0, "level": "G"},
-
-		"Baillieu-1-01": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-02": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-03": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-04": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-05": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-06": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-07": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-08": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-09": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-10": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-11": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-12": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-13": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-14": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-15": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-16": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-17": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-18": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-19": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-20": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-21": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-22": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-23": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-24": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-25": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-26": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-27": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-28": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-29": {"x": 0, "y": 0, "level": "1"},
-		"Baillieu-1-30": {"x": 0, "y": 0, "level": "1"},
-
-		"Baillieu-2-01": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-02": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-03": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-04": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-05": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-06": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-07": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-08": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-09": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-10": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-11": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-12": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-13": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-14": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-15": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-16": {"x": 0, "y": 0, "level": "2"},
-		"Baillieu-2-17": {"x": 0, "y": 0, "level": "2"}
-	}
+    "info": {
+        "id": 2,
+        "name": "Baillieu"
+    },
+    "levels": {
+        "1": {
+            "filename": "baillieu_01.png",
+            "order": ""
+        },
+        "2": {
+            "filename": "baillieu_02.png",
+            "order": ""
+        },
+        "G": {
+            "filename": "baillieu_g.png",
+            "order": ""
+        },
+        "LG": {
+            "filename": "baillieu_lg.png",
+            "order": ""
+        },
+        "Not": {
+            "filename": "baillieu_not.png",
+            "order": ""
+        }
+    },
+    "resources": {
+        "Baillieu-1-01": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-02": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-03": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-04": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-05": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-06": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-07": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-08": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-09": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-10": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-11": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-12": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-13": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-14": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-15": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-16": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-17": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-18": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-19": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-20": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-21": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-22": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-23": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-24": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-25": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-26": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-27": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-28": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-29": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-30": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-31": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-32": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-33": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-34": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-35": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-36": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-37": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-38": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-39": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-40": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-41": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-42": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-43": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-44": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-45": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-46": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-47": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-48": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-49": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-50": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-51": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-52": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-53": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-54": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-55": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-56": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-57": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-58": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-59": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-60": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-61": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-62": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-63": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-64": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-65": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-1-66": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-01": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-02": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-03": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-04": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-05": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-06": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-07": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-08": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-09": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-10": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-11": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-12": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-13": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-14": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-15": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-16": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-2-17": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-01": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-02": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-03": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-04": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-05": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-06": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-07": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-08": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-09": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-10": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-11": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-12": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-13": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-14": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-15": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-16": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-17": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-18": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-19": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-20": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-21": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-22": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-23": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-24": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-25": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-26": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-27": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-28": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-29": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-30": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-31": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-32": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-33": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-34": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-35": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-36": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-37": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-38": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-39": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-40": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-41": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-42": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-43": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-44": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-45": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-46": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-47": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-48": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-49": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-50": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-51": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-52": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-53": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-54": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-55": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-56": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-57": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-58": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-59": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-60": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-61": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-62": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-63": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-G-64": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-01": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-02": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-03": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-04": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-05": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-06": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-07": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-08": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-09": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-10": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-11": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-12": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-13": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-14": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-15": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-16": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-17": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Baillieu-LG-18": {
+            "level": "LG",
+            "x": 0,
+            "y": 0
+        },
+        "Booth 1": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Booth 2": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Booth 3": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "PC-Not-Exist": {
+            "level": "Not",
+            "x": 0,
+            "y": 0
+        },
+        "PGrad Room 203": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "PGrad Room 204": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "PGrad Room G-1": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "PGrad Room G-2": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 1": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 2": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 3": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 4": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        }
+    }
 }

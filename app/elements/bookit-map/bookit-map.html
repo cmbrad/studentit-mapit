@@ -113,12 +113,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						console.log('Map already initialized.');
 						return;
 					}
-					if (this.resource === undefined || this.resource === null) {
+					/*if (this.resource === undefined || this.resource === null) {
 						console.log('No resource to display.');
 						return;
 					} else {
 						console.log('Resource [' + this.resource + '].');
-					}
+					}*/
 					if (!this.isAttached) {
 						console.log('Map is not attached.');
 						return;
@@ -136,13 +136,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				_siteChanged: function(newSite, oldSite) {
 					console.log('Site changed from ' + oldSite + ' to ' + newSite);
 					this.resource = null;
-					this._initMap();
+					this.map.setLocation(newSite);
 				},
 
 				_resourceChanged: function(newR) {
-					this._initMap();
-
-					if (newR !== null) {
+					if (this.map && newR) {
 						this.map.centerOnResource(newR);
 					}
 				},

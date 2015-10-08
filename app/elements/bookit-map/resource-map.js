@@ -19,7 +19,6 @@ var ResourceMap = function(loc) {
 	//var _prevY = null;
 
 	var scale = 1.1;
-	var location;
 
 	var that = this;
 
@@ -36,12 +35,9 @@ var ResourceMap = function(loc) {
 
 		var map = document.getElementById('map');
 		this._map = map;
-
 		this._map.innerHTML = '';
 
 		this._createMap();
-		this.resizeCanvas();
-		this._loadPositions();
 
 		if (!this._animFrame) {
 			console.log('Oh no :(');
@@ -50,25 +46,32 @@ var ResourceMap = function(loc) {
 		}
 	};
 
+	this.setLocation = function(loc) {
+		if (!this._map) {
+			console.log('Cannot set location while map is undefined.');
+			return;
+		}
+		this.location = loc;
+
+		this._loadPositions();
+	};
+
 	this._createMap = function() {
 		var canvas = document.createElement('canvas');
 
 		canvas.id = 'map_canvas';
 		canvas.width = this._map.offsetWidth;
 		canvas.height = this._map.offsetHeight;
-		//canvas.style.background = '#ff00ff';
+
 		this._map.appendChild(canvas);
 
 		this._c   = canvas;
 		this._ctx = canvas.getContext('2d');
+
 		/* global trackTransforms */
 		trackTransforms(this._ctx);
 
-		this._setBackground('baillieu_1.png');
-	};
-
-	this.getLocation = function() {
-		return location;
+		this.resizeCanvas();
 	};
 
 	this.centerOnResource = function(name) {
@@ -101,14 +104,10 @@ var ResourceMap = function(loc) {
 		this._setBackground(filename);
 	};
 
-	this.setLocation = function(loc) {
-		// Setting location to
-		this.location = loc;
-	};
 
 	this._loadPositions = function() {
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open('GET', 'maps/baillieu.json', true);
+		xmlhttp.open('GET', 'maps/' + this.location + '.json', true);
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				var obj = JSON.parse(xmlhttp.responseText);
@@ -130,7 +129,7 @@ var ResourceMap = function(loc) {
 	};
 
 	this._scaleToScreen = function() {
-		if (this._background.width !== 0 && this._background.height !== 0) {
+		if (this._background && this._background.width !== 0 && this._background.height !== 0) {
 			var wScale = this._w / this._background.width;
 			var hScale = this._h / this._background.height;
 
@@ -167,6 +166,9 @@ var ResourceMap = function(loc) {
 	};
 
 	this._drawBackground = function() {
+		if (!this._background) {
+			return;
+		}
 		this._ctx.drawImage(this._background,
 		                                   0,
 		                                   0,
@@ -224,15 +226,6 @@ var ResourceMap = function(loc) {
 		this._ctx.scale(factor, factor);
 		this._ctx.translate(-t.x, -t.y);
 	};
-
-	this._getMousePos = function(canvas, evt) {
-                var rect = canvas.getBoundingClientRect();
-
-                return {
-                        x: ((evt.clientX-rect.left)/(rect.right-rect.left)*canvas.width),
-                        y: ((evt.clientY-rect.top)/(rect.bottom-rect.top)*canvas.height)
-                };
-        };
 
 	this.movePosition = function(x, y) {
 		//console.log('Moving map by (' + x + ', ' + y + ') to (' + this._prevX + ', ' + this._prevY + ') pixels.');

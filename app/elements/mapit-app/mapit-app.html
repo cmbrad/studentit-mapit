@@ -142,16 +142,10 @@ Left Nav + List + Detail
       },
 
       attached: function() {
-	//document.querySelector('bookit-list').addEventListener('resourceTap', function (e) {
-	//	console.log(e.detail.name); // true
-	//	document.querySelector('bookit-list').resource = e.detail.name;
-	//});
+	document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
+		document.getElementById('mainDrawerPanel').closeDrawer();
+	});
       },
-
-      _listTap: function() {
-        this.$.mainDrawerPanel.closeDrawer();
-      }
-
     });
 
   </script>
