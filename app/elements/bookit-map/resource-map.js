@@ -61,6 +61,7 @@ var ResourceMap = function(loc) {
 		}
 		this.location = loc;
 
+		this._clearBackground();
 		this._loadPositions();
 	};
 
@@ -135,6 +136,11 @@ var ResourceMap = function(loc) {
 	};
 
 	this._drawResource = function(resource) {
+		// Don't allow resource drawing outside of the map
+		if (resource.x <= 0 || resource.y <= 0) {
+			return;
+		}
+
 		var ctx = that._ctx;
 
 		ctx.fillStyle = _stateColour[resource.state];
@@ -181,6 +187,10 @@ var ResourceMap = function(loc) {
 		this._background.onload = function() {
 			that._scaleToScreen();
 		};
+	};
+
+	this._clearBackground = function() {
+		this._background = null;
 	};
 
 	this._drawBackground = function() {
