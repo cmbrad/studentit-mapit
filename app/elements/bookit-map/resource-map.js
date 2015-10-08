@@ -105,14 +105,10 @@ var ResourceMap = function(loc) {
 		console.log('Centering on [' + name + '].');
 		console.log(resInfo);
 
-		this._loadLevel(level.filename);
-	};
-
-	this._loadLevel = function(filename) {
+		this._level = resInfo.level;
 		this._clearCanvas();
-		this._setBackground(filename);
+		this._setBackground(level.filename);
 	};
-
 
 	this._loadPositions = function() {
 		var xmlhttp = new XMLHttpRequest();
@@ -137,7 +133,7 @@ var ResourceMap = function(loc) {
 
 	this._drawResource = function(resource) {
 		// Don't allow resource drawing outside of the map
-		if (resource.x <= 0 || resource.y <= 0) {
+		if (resource.x <= 0 || resource.y <= 0 || resource.level !== that._level) {
 			return;
 		}
 
