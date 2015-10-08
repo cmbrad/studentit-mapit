@@ -1,0 +1,119 @@
+{
+    "info": {
+        "id": 9,
+        "name": "Lenton Parr"
+    },
+    "levels": {
+        "1": {
+            "filename": "lenton_parr_01.png",
+            "order": ""
+        }
+    },
+    "resources": {
+        "Game1 XBOX": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        },
+        "Game2 PS3": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        },
+        "LP-01": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-02": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-03": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-04": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-05": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-06": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-07": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-08": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-09": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-10": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-11": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-12": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-13": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-14": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "LP-15": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Room1 (6 ppl max DVD/VHS)": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        },
+        "Room2 (6 ppl max DVD)": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        },
+        "Room3 (6 ppl max DVD/VHS)": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        },
+        "Room4 (6 ppl max DVD/VHS/LP/CD)": {
+            "level": "",
+            "x": 0,
+            "y": 0
+        }
+    }
+}

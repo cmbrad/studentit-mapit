@@ -1,0 +1,128 @@
+{
+    "info": {
+        "id": 8,
+        "name": "Architecture"
+    },
+    "levels": {
+        "B": {
+            "filename": "architecture_b.png",
+            "order": ""
+        },
+        "G": {
+            "filename": "architecture_g.png",
+            "order": ""
+        }
+    },
+    "resources": {
+        "ABP-B-01": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-B-02": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-B-03": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-B-04": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-B-05": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-B-06": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-01": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-02": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-03": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-04": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-05": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-06": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-07": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-08": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-09": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-10": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-11": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "ABP-G-12": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 1": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 2": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 3": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 4": {
+            "level": "B",
+            "x": 0,
+            "y": 0
+        }
+    }
+}

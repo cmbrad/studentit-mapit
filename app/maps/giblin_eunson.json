@@ -1,0 +1,312 @@
+{
+    "info": {
+        "id": 3,
+        "name": "Giblin Eunson"
+    },
+    "levels": {
+        "1": {
+            "filename": "giblin_eunson_01.png",
+            "order": ""
+        },
+        "G": {
+            "filename": "giblin_eunson_g.png",
+            "order": ""
+        },
+        "UG": {
+            "filename": "giblin_eunson_ug.png",
+            "order": ""
+        }
+    },
+    "resources": {
+        "GE-1-01": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-1-02": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-1-03": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-1-04": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-1-05": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-1-06": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-01": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-02": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-03": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-04": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-05": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-06": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-07": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-08": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-09": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-10": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-11": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-12": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-13": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-14": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-15": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-16": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-G-17": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-01": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-02": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-03": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-04": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-05": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-06": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-07": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-08": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-09": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-10": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-11": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-12": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-15": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-16": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-17": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-18": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-19": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-20": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-22": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-23": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-25": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-27": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-28": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-29": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-30": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "GE-UG-31": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 1": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 10": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 2": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 3": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 4": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 5": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 6": {
+            "level": "UG",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 8": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 9": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        }
+    }
+}

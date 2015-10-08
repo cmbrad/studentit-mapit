@@ -1,0 +1,287 @@
+{
+    "info": {
+        "id": 11,
+        "name": "Brownless"
+    },
+    "levels": {
+        "1": {
+            "filename": "brownless_01.png",
+            "order": ""
+        },
+        "2": {
+            "filename": "brownless_02.png",
+            "order": ""
+        },
+        "G": {
+            "filename": "brownless_g.png",
+            "order": ""
+        }
+    },
+    "resources": {
+        "Brownless-1-01": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-1-02": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-1-03": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-1-04": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-1-05": {
+            "level": "1",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-2-01": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-2-02": {
+            "level": "2",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-01": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-02": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-03": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-04": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-05": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-06": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-07": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-08": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-09": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-10": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-11": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-12": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-13": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-14": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-15": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-16": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-17": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-18": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-19": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-20": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-21": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-22": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-23": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-24": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-25": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-26": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-27": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-28": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-29": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-30": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-31": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-32": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-33": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-34": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-35": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-36": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-37": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-38": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-39": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-40": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-41": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Brownless-G-42": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 1": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 2": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 3": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        },
+        "Project Room 4": {
+            "level": "G",
+            "x": 0,
+            "y": 0
+        }
+    }
+}
