@@ -105,6 +105,7 @@ var ResourceMap = function(loc) {
 		console.log('Centering on [' + name + '].');
 		console.log(resInfo);
 
+		this.resizeCanvas();
 		this._level = resInfo.level;
 		this._clearCanvas();
 		this._setBackground(level.filename);

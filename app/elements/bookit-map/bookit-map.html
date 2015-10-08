@@ -32,17 +32,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				font-size: 24px;
 			}
 
-			#map {
+			#map, #info {
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
 			}
+
+			#info {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
 		</style>
 
 		<div id="container">
-			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll">
-				<div>Map for <span>[[site]]</span></div>
+			<div id="info" hidden$="[[!hideMap]]">
+				<div>
+					<span>Info screen for <span>[[site]]</span></span><br>
+					<span>Click on a resource to view a map</span>
+				</div>
 			</div>
+			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll" hidden$="[[hideMap]]"></div>
 		</div>
 	</template>
 	
@@ -70,6 +80,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: Object,
 						notify: true,
 						value: null
+					},
+					hideMap: {
+						type: Boolean,
+						value: true
 					},
 					xPos: {
 						type: Number,
@@ -140,11 +154,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				_siteChanged: function(newSite, oldSite) {
 					console.log('Site changed from ' + oldSite + ' to ' + newSite);
 					this.resource = null;
+					this.hideMap = true;
 					this.map.setLocation(newSite);
 				},
 
 				_focusResourceChanged: function(resource) {
 					if (this.map && resource) {
+						this.hideMap = false;
 						this.map.centerOnResource(resource);
 					}
 				},
