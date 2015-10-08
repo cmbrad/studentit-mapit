@@ -58,9 +58,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: String,
 						observer: '_siteChanged'
 					},
-					resource: {
+					focusResource: {
 						type: String,
-						observer: '_resourceChanged'
+						observer: '_focusResourceChanged'
+					},
+					resources: {
+						type: Object,
+						observer: '_resourcesChanged'
 					},
 					map: {
 						type: Object,
@@ -139,10 +143,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					this.map.setLocation(newSite);
 				},
 
-				_resourceChanged: function(newR) {
-					if (this.map && newR) {
-						this.map.centerOnResource(newR);
+				_focusResourceChanged: function(resource) {
+					if (this.map && resource) {
+						this.map.centerOnResource(resource);
 					}
+				},
+
+				_resourcesChanged: function(resources) {
+					console.log('Resources: ');
+
+					if(resources.length === 0) {
+						return;
+					}
+
+					var rs = [];
+					console.log(resources);
+
+					for (var l in resources[0].locations) {
+						var location = resources[0].locations[l];
+						rs = rs.concat(location.resources);
+					}
+	
+					this.map.resourceUpdate(rs);
 				},
 
 				_handleMapTrack: function(e) {

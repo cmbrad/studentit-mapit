@@ -4,6 +4,14 @@ var ResourceMap = function(loc) {
 	var RESOURCE_SIZE        = 10;
 	var RESOURCE_STROKE_SIZE =  3;
 
+	var _stateColour = {
+		'':              '#4FC3F7',
+		'AVAILABLE':     '#81C784',
+		'IN_USE':        '#E57373',
+		'NOT_AVAILABLE': '#000000',
+		'RESERVED':      '#FFD54F',
+	};
+
 	//var RESOURCE_SELECTED_COLOUR = '#FFC107';
 	//var RESOURCE_IN_USE_COLOUR   = '';
 	//var RESOURCE_AVAIL_COLOUR    = '';
@@ -118,14 +126,24 @@ var ResourceMap = function(loc) {
 		xmlhttp.send(null);
 	};
 
-	this._drawResource = function(resource) {
-		this.ctx.fillStyle = resource.colour;
-		this.ctx.beginPath();
-		this.ctx.arc(resource.x, resource.y, RESOURCE_SIZE, 0, 2 * Math.PI, false);
-		this.ctx.fill();
+	this.resourceUpdate = function(resources) {
+		for (var r in resources) {
+			var resource = resources[r];
+			this._mapInfo.resources[resource.name].state = resource.state;
+		}
+		console.log(this._mapInfo);
+	};
 
-		this.ctx.lineWidth = RESOURCE_STROKE_SIZE;
-		this.ctx.stroke();
+	this._drawResource = function(resource) {
+		var ctx = that._ctx;
+
+		ctx.fillStyle = _stateColour[resource.state];
+		ctx.beginPath();
+		ctx.arc(resource.x, resource.y, RESOURCE_SIZE, 0, 2 * Math.PI, false);
+		ctx.fill();
+
+		ctx.lineWidth = RESOURCE_STROKE_SIZE;
+		ctx.stroke();
 	};
 
 	this._scaleToScreen = function() {
@@ -200,10 +218,17 @@ var ResourceMap = function(loc) {
 
 		that._drawBackground();
 
-		//for (var name in resources) {
-		//	var resource = resources[name];
-		//	that._drawResource(resources);
-		//}
+		// Only draw resources if we have information
+		// about where on the map they should go, and if
+		// we are currently displaying a background.
+		// Dots on an empty page look stupid.
+		if (that._mapInfo && that._background) {
+			var resources = that._mapInfo.resources;
+			for (var name in resources) {
+				var resource = resources[name];
+				that._drawResource(resource);
+			}
+		}
 
 		that._ctx.restore();
 	};
