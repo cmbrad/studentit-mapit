@@ -70,7 +70,7 @@ var ResourceMap = function(loc) {
 
 		canvas.id = 'map_canvas';
 		canvas.width = this._map.offsetWidth;
-		canvas.height = this._map.offsetHeight;
+		canvas.height = this._map.offsetHeight - 64;
 
 		this._map.appendChild(canvas);
 
@@ -206,7 +206,7 @@ var ResourceMap = function(loc) {
 		//console.log(this._map);
 
 		this._w = this._c.width = this._map.offsetWidth;
-		this._h = this._c.height = this._map.offsetHeight;
+		this._h = this._c.height = this._map.offsetHeight - 64;
 
 		this._scaleToScreen();
 		this._drawMap();
