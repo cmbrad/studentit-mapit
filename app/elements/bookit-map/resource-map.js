@@ -101,7 +101,16 @@ var ResourceMap = function(loc) {
 		}
 
 		var level = this._mapInfo.levels[resInfo.level];
-		
+	
+		if (this._lastSelected) {
+			this._mapInfo.resources[this._lastSelected].selected = false;
+		}
+		this._lastSelected = name;
+
+		this._mapInfo.resources[name].selected = true;
+
+		console.log(this._mapInfo.resources);
+
 		console.log('Centering on [' + name + '].');
 		console.log(resInfo);
 
@@ -144,6 +153,12 @@ var ResourceMap = function(loc) {
 		ctx.beginPath();
 		ctx.arc(resource.x, resource.y, RESOURCE_SIZE, 0, 2 * Math.PI, false);
 		ctx.fill();
+
+		if (resource.selected) {
+			ctx.strokeStyle = '#ff0000';
+		} else {
+			ctx.strokeStyle = '#000000';
+		}
 
 		ctx.lineWidth = RESOURCE_STROKE_SIZE;
 		ctx.stroke();
@@ -231,6 +246,7 @@ var ResourceMap = function(loc) {
 		// Dots on an empty page look stupid.
 		if (that._mapInfo && that._background) {
 			var resources = that._mapInfo.resources;
+			//console.log(resources);
 			for (var name in resources) {
 				var resource = resources[name];
 				that._drawResource(resource);
