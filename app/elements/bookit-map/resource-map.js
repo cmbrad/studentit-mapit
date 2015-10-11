@@ -202,8 +202,8 @@ var ResourceMap = function(loc) {
 	};
 
 	this.resizeCanvas = function() {
-		console.log(this._c.width);
-		console.log(this._map);
+		//console.log(this._c.width);
+		//console.log(this._map);
 
 		this._w = this._c.width = this._map.offsetWidth;
 		this._h = this._c.height = this._map.offsetHeight;

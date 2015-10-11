@@ -86,6 +86,14 @@ a iron-icon {
 	color: var(--default-primary-color);
 }
 
+.main-drawer-panel {
+	top: auto;
+}
+
+.main-drawer-panel:not([narrow])  #back_arrow {
+	display: none;
+}
+
 .main-drawer-panel:not([narrow]) [list-toggle] {
   display: none;
 }

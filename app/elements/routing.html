@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   window.addEventListener('WebComponentsReady', function() {
     var bookit = document.querySelector('#bookit_data');
+    var iPages = document.querySelector('#iPages');
 
     // We use Page.js for routing. This is a Micro
     // client-side router inspired by the Express router
@@ -24,35 +25,48 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
 
     page('/', scrollToTop, function () {
-      bookit.site = 'baillieu';
+      //bookit.site = 'baillieu';
+      iPages.selected = 'summary';
+    });
+
+    page('/summary', scrollToTop, function () {
+      bookit.site = '';
+      iPages.selected = 'summary';
     });
 
     page('/architecture', scrollToTop, function () {
       bookit.site = 'architecture';
+      iPages.selected = 'library';
     });
 
     page('/baillieu', scrollToTop, function () {
       bookit.site = 'baillieu';
+      iPages.selected = 'library';
     });
 
     page('/brownless', scrollToTop, function () {
       bookit.site = 'brownless';
+      iPages.selected = 'library';
     });
 
     page('/erc', scrollToTop, function () {
       bookit.site = 'erc';
+      iPages.selected = 'library';
     });
 
     page('/giblin_eunson', scrollToTop, function () {
       bookit.site = 'giblin_eunson';
+      iPages.selected = 'library';
     });
 
     page('/law', scrollToTop, function () {
       bookit.site = 'law';
+      iPages.selected = 'library';
     });
 
     page('/lenton_parr', scrollToTop, function () {
       bookit.site = 'lenton_parr';
+      iPages.selected = 'library';
     });
 
     // add #! before urls

@@ -22,8 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<template is="dom-repeat" items="[[sites]]" as="site">
 			<template is="dom-repeat" items="[[site.locations]]" as="location">
 				<div class="list" role="list">
-       		<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}" total="[[totalResources(location.resources)]]"></list-header>
-
+       					<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}"
+					             total="[[totalResources(location.resources)]]"></list-header>
 					<paper-menu class="list" on-iron-activate="_listTap">
 						<template is="dom-repeat" items="[[location.resources]]" as="resource">
 							<paper-item>

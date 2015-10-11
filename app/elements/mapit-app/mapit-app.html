@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
@@ -22,11 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bookit-data/bookit-data.html">
 <link rel="import" href="../bookit-list/bookit-list.html">
 
-<!--
-
-Left Nav + List + Detail
-
- -->
 <dom-module id="mapit-app">
 	<link rel="import" type="css" href="mapit-app.css">
 
@@ -39,96 +35,110 @@ Left Nav + List + Detail
 					<span class="paper-font-title">Menu</span>
 				</paper-toolbar>
 
-				<paper-menu class="lib_list" attr-for-selected="data-route" selected="{{route}}" on-click="onDataRouteClick">
-					<a data-route="architecture" href="/architecture">
+				<paper-menu class="lib_list" attr-for-selected="data-route"
+				            selected="{{route}}" on-click="onDataRouteClick">
+					<a data-route="summary" href="/summary">
 						<paper-item>
 							<iron-icon icon="info"></iron-icon>
+							<span>Summary</span>
+						</paper-item>
+					</a>
+					<a data-route="architecture" href="/architecture">
+						<paper-item>
+							<iron-icon icon="room"></iron-icon>
 							<span>Architecture</span>
 						</paper-item>
 					</a>
-					<a data-route="baillieu" href="/baillieu">
+					<a data-route="library" href="/baillieu">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>Baillieu</span>
 						</paper-item>
 					</a>
 					<a data-route="brownless" href="/brownless">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>Brownless</span>
 						</paper-item>
 					</a>
 					<a data-route="erc" href="/erc">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>ERC</span>
 						</paper-item>
 					</a>
 					<a data-route="giblin_eunson" href="/giblin_eunson">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>Giblin Eunson</span>
 						</paper-item>
 					</a>
 					<a data-route="law" href="/law">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>Law</span>
 						</paper-item>
 					</a>
 					<a data-route="lenton_parr" href="/lenton_parr">
 						<paper-item>
-							<iron-icon icon="info"></iron-icon>
+							<iron-icon icon="room"></iron-icon>
 							<span>Lenton Parr</span>
 						</paper-item>
 					</a>
 				</paper-menu>
 			</div>
 
-      <paper-drawer-panel id="mainDrawerPanel" class="main-drawer-panel" main responsive-width="600px"
-          drawer-width="[[_computeListWidth(_isMobile)]]" drawer-toggle-attribute="list-toggle"
-          narrow="{{_isMobile}}" default-selected="drawer" disable-swipe>
+			<div main>
+				<paper-toolbar class="mainToolbar">
+					<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+					<paper-icon-button id="back_arrow" icon="arrow-back"
+					                   on-tap="_handleBackPress" hidden$="{{hideBackArrow()}}"></paper-icon-button>
 
-        <paper-header-panel class="list-panel" drawer>
+					<span class="title">MapIT</span>
+						<paper-icon-button icon="refresh"></paper-icon-button>
+						<paper-icon-button icon="search"></paper-icon-button>
+          			</paper-toolbar>
+			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
+				<section data-section="summary">
+					<span>Hello</span>
+				</section>
 
-          <!-- List Toolbar -->
-          <paper-toolbar class="mainToolbar">
-            <paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+				<section data-section="library">
+					<paper-drawer-panel id="mainDrawerPanel" class="main-drawer-panel" responsive-width="600px"
+					                    drawer-width="[[_computeListWidth(_isMobile)]]" drawer-toggle-attribute="list-toggle"
+					                    narrow="{{_isMobile}}" default-selected="drawer" disable-swipe
+					                    on-iron-select="_onMainDrawerSelect">
+        					<paper-header-panel class="list-panel" drawer>
+							<!--<paper-toolbar class="mainToolbar">
+								<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
 
-            <span class="title">MapIT</span>
+								<span class="title">MapIT</span>
+									<paper-icon-button icon="refresh"></paper-icon-button>
+									<paper-icon-button icon="search"></paper-icon-button>
+          						</paper-toolbar>-->
 
-            <!-- Toolbar icons -->
-            <paper-icon-button icon="refresh"></paper-icon-button>
-            <paper-icon-button icon="search"></paper-icon-button>
+							<div class="fit">
+								<bookit-list sites="[[sites]]" resource="{{resource}}"></bookit-list>
+							</div>
 
-          </paper-toolbar>
+						</paper-header-panel>
 
-          <!-- List -->
-          <div class="fit">
-            <bookit-list sites="[[sites]]" resource="{{resource}}"></bookit-list>
-          </div>
+						<paper-header-panel class="content-panel" main>
+							<!--<paper-toolbar class="mainToolbar">
+								<paper-icon-button icon="arrow-back" list-toggle></paper-icon-button>
+							</paper-toolbar>-->
 
-        </paper-header-panel>
+							<div class="fit">
+								<bookit-map site="{{site}}" focus-resource="[[resource]]" resources="[[sites]]"></bookit-map>
+							</div>
 
-        <paper-header-panel class="content-panel" main>
-
-          <!-- Main Toolbar -->
-          <paper-toolbar class="mainToolbar">
-            <paper-icon-button icon="arrow-back" list-toggle></paper-icon-button>
-          </paper-toolbar>
-
-          <!-- Main Content -->
-          <div class="fit">
-            <bookit-map site="{{site}}" focus-resource="[[resource]]" resources="[[sites]]"></bookit-map>
-          </div>
-
-        </paper-header-panel>
-
-      </paper-drawer-panel>
-
-    </paper-drawer-panel>
-
-  </template>
+						</paper-header-panel>
+					</paper-drawer-panel>
+				</section>
+			</iron-pages>
+			</div>
+		</paper-drawer-panel>
+	</template>
 
   <script>
 
@@ -140,6 +150,28 @@ Left Nav + List + Detail
         // when in mobile screen size, make the list be 100% width to cover the whole screen
         return isMobile ? '100%' : '360px';
       },
+
+	_handleBackPress: function() {
+		console.log('o.o');
+		document.getElementById('mainDrawerPanel').openDrawer();
+	},
+
+	_onMainDrawerSelect: function(e, detail) {
+		var drawerNarrow = document.getElementById('mainDrawerPanel').narrow;
+		var librarySelected = document.getElementById('iPages').selected === 'library';
+
+		if (detail.item.id === 'main' || detail.item.id === 'drawer') {
+			var hidden = !(detail.item.id === 'main' && drawerNarrow && librarySelected);
+			document.getElementById('back_arrow').hidden = hidden;
+		}
+	},
+
+	hideBackArrow: function() {
+		if (document.getElementById('mainDrawerPanel').narrow) {
+			return false;
+		}
+		return true;
+	},
 
       attached: function() {
 	document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
