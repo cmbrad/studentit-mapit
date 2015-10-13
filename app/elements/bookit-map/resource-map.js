@@ -83,6 +83,42 @@ var ResourceMap = function(loc) {
 		this.resizeCanvas();
 	};
 
+	this.moveResource = function(name, x, y) {
+		name = name.trim();
+
+		var t = this._ctx.transformedPoint(x, y);
+
+		this._mapInfo.resources[name].x = t.x;
+		this._mapInfo.resources[name].y = t.y;
+
+		this.saveResourceFile();
+	};
+
+	this.saveResourceFile = function() {
+		var out = {};
+
+		out.info      = this._mapInfo.info;
+		out.levels    = this._mapInfo.levels;
+		out.resources = {};
+
+		var resources = this._mapInfo.resources;
+		for (var name in resources) {
+			var resource       = resources[name];
+			out.resources[name] = {
+				'level': resource.level,
+				'x':     resource.x,
+				'y':     resource.y
+
+			};
+			
+
+			//out['resources'][resource]
+		}
+
+		var json = JSON.stringify(out, null, 4);
+		console.log(json);
+	};
+
 	this.centerOnResource = function(name) {
 		name = name.trim();
 		if (!this._mapInfo) {

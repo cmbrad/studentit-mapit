@@ -52,7 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<span>Click on a resource to view a map</span>
 				</div>
 			</div>
-			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll" hidden$="[[hideMap]]"></div>
+			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
+			     on-dragover="_handleDragover" on-drop="_handleDrop" hidden$="[[hideMap]]"></div>
 		</div>
 	</template>
 	
@@ -126,17 +127,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					this._initMap();
 				},
 
+				_handleDragover: function(e) {
+					e.preventDefault();
+				},
+
+				_handleDrop: function(e) {
+					var data = e.dataTransfer.getData('text/html');
+					this.map.moveResource(data, e.offsetX, e.offsetY);
+				},
+
 				_initMap: function() {
 					if (this.map) {
 						console.log('Map already initialized.');
 						return;
 					}
-					/*if (this.resource === undefined || this.resource === null) {
-						console.log('No resource to display.');
-						return;
-					} else {
-						console.log('Resource [' + this.resource + '].');
-					}*/
 					if (!this.isAttached) {
 						console.log('Map is not attached.');
 						return;
