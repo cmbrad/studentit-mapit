@@ -54,7 +54,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</div>
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
-			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"></div>
+			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"
+			     on-touchstart="_handleTouchStart" on-touchmove="_handleTouchMove"
+			     on-touchend="_handleTouchEnd"></div>
 		</div>
 	</template>
 	
@@ -114,6 +116,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: Number,
 						value: 0.2,
 						notify: true
+					},
+					scaling: {
+						type: Boolean,
+						value: false
 					}
 				},
 
@@ -135,6 +141,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				_handleDrop: function(e) {
 					var data = e.dataTransfer.getData('text/html');
 					this.map.moveResource(data, e.offsetX, e.offsetY);
+				},
+
+				_handleTouchStart: function(e) {
+					if (e.touches.length === 2) {
+						this.scaling = true;
+					}
+				},
+				_handleTouchMove: function(e) {
+					console.log(e);
+					if (this.scaling) {
+						var x = 0;
+						var y = 0;
+
+						for (var i = 0; i < e.touches.length; i++) {
+							x += e.touches[i].pageX - e.touches[i].target.offsetLeft;
+							y += e.touches[i].pageY - e.touches[i].target.offsetTop;
+						}
+
+						x /= e.touches.length;
+						y /= e.touches.length;
+
+						this.map.setZoom(x - 300, y - 64, 1);
+
+						console.log('(' + x + ',' + y + ')');
+					}
+				},
+				_handleTouchEnd: function() {
+					this.scaling = true;
 				},
 
 				_handleMouseWheel: function(e) {
