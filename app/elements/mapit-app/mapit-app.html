@@ -90,9 +90,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			<div main>
 				<paper-toolbar class="mainToolbar">
-					<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
+					<paper-icon-button id="menu_btn" icon="menu" paper-drawer-toggle></paper-icon-button>
 					<paper-icon-button id="back_arrow" icon="arrow-back"
-					                   on-tap="_handleBackPress" hidden$="{{hideBackArrow()}}"></paper-icon-button>
+					                   on-tap="_handleBackPress" hidden="{{hideBackArrow()}}"></paper-icon-button>
 
 					<span class="title">MapIT</span>
 						<paper-icon-button icon="refresh"></paper-icon-button>
@@ -163,13 +163,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		if (detail.item.id === 'main' || detail.item.id === 'drawer') {
 			var hidden = !(detail.item.id === 'main' && drawerNarrow && librarySelected);
 			document.getElementById('back_arrow').hidden = hidden;
+
+			if (hidden) {
+				document.getElementById('menu_btn').style.display = 'block';
+			} else {
+				document.getElementById('menu_btn').style.display = 'none';
+			}
 		}
 	},
 
 	hideBackArrow: function() {
-		if (document.getElementById('mainDrawerPanel').narrow) {
+		if (document.getElementById('mainDrawerPanel').narrow &&
+		    document.getElementById('iPages').selected === 'library') {
+			document.getElementById('menu_btn').style.display = 'none';
 			return false;
 		}
+		document.getElementById('menu_btn').style.display = 'block';
 		return true;
 	},
 

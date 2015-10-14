@@ -101,3 +101,7 @@ a iron-icon {
 .content {
   height: 100%;
 }
+
+#back_arrow {
+	margin-right: 24px;
+}
