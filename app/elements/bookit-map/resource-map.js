@@ -302,9 +302,11 @@ var ResourceMap = function(loc) {
 		}
 	};
 
-	this._zoom = function(f) {
-		var t = this._ctx.transformedPoint(this._mPos.x, this._mPos.y);
+	this.setZoom = function(x,y,f) {
+		var t = this._ctx.transformedPoint(x, y);
 		var factor = Math.pow(scale, f);
+
+		console.log('Zoom by ' + factor);
 
 		this._ctx.translate(t.x, t.y);
 		this._ctx.scale(factor, factor);

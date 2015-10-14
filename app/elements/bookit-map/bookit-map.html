@@ -53,7 +53,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</div>
 			</div>
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
-			     on-dragover="_handleDragover" on-drop="_handleDrop" hidden$="[[hideMap]]"></div>
+			     on-dragover="_handleDragover" on-drop="_handleDrop"
+			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"></div>
 		</div>
 	</template>
 	
@@ -134,6 +135,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				_handleDrop: function(e) {
 					var data = e.dataTransfer.getData('text/html');
 					this.map.moveResource(data, e.offsetX, e.offsetY);
+				},
+
+				_handleMouseWheel: function(e) {
+					console.log(e);
+					var delta = e.wheelDelta ? e.wheelDelta/40 : e.detail ? -e.detail : 0;
+					this.map.setZoom(e.offsetX, e.offsetY, delta);
 				},
 
 				_initMap: function() {
