@@ -13,12 +13,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="bookit-data">
 	<template>
 		<iron-ajax
-			auto
+			id="bookitAjax"
 			url="http://mapit-proxy.cy.id.au/api.py"
 			params='{{params}}'
 			handle-as="json"
 			last-response="{{sites}}"
-			last-error="{{bookitError}}">
+			last-error="{{bookitError}}"
+			on-response="_handleResponse">
 		</iron-ajax>
 	</template>
 
@@ -44,12 +45,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				params: {
 					type: Object,
-					computed: 'makeParams(siteID)'
+					value: {name: ''}
 				}
 			},
 
 			_siteChanged: function() {
 				this.sites = [];
+				this.params = {
+					'url': 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + this.getSiteID(this.site),
+				};
+
+				this.$.bookitAjax.generateRequest();
+			},
+
+			_handleResponse: function(e, detail) {
+				console.log(e);
+				console.log(detail);
 			},
 
 			getSiteID: function(site) {
@@ -60,16 +71,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					'erc':           7,
 					'giblin_eunson': 3,
 					'law':          12,
-					'lenton_parr':   9
+					'lenton_parr':   9,
+					'':             ''
 				};
 
 				return ids[site];
-			},
-
-			makeParams: function(siteID) {
-				return {
-					url: 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + siteID,
-				};
 			}
 		});
 	</script>

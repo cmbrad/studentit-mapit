@@ -17,6 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
 
 <link rel="import" href="../routing.html">
 
@@ -36,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</paper-toolbar>
 
 				<paper-menu class="lib_list" attr-for-selected="data-route"
-				            selected="{{route}}" on-click="onDataRouteClick">
+				            selected="{{route}}" on-tap="onDataRouteClick">
 					<a data-route="summary" href="/summary">
 						<paper-item>
 							<iron-icon icon="info"></iron-icon>
@@ -100,7 +101,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           			</paper-toolbar>
 			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
 				<section data-section="summary">
-					<span>Hello</span>
+					<library-summary sites="[[sites]]"></library-summary>
 				</section>
 
 				<section data-section="library">
