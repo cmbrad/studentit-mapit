@@ -24,9 +24,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<div class="list" role="list">
        					<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}"
 					             total="[[totalResources(location.resources)]]"></list-header>
-					<paper-menu class="list" on-iron-activate="_listTap">
+					<paper-menu class="list">
 						<template is="dom-repeat" items="[[location.resources]]" as="resource">
-							<paper-item class="draggable" draggable="true" on-dragstart="_handleDragStart">
+							<paper-item class="draggable" on-tap="_listTap" draggable="true" on-dragstart="_handleDragStart">
 								<div class$="{{iconColour(resource.state)}}" item-icon></div>
 								<div class="item_name">[[resource.name]]</div>
 							</paper-item>
@@ -59,10 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				}
 			},
 
-			_listTap: function(e,detail) {
+			_listTap: function(e) {
 				this.fire('closeDrawer');
 				this.resource = '';
-				this.resource = detail.item.innerText;
+				this.resource = e.target.textContent;
 			},
 
 			_handleDragStart: function(e) {
