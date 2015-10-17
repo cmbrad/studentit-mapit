@@ -39,7 +39,6 @@ var ResourceMap = function(loc) {
 			null;
 
 		this.setLocation(loc);
-		console.log('Creating map.');
 
 		var map = document.getElementById('map');
 		this._map = map;
@@ -145,11 +144,6 @@ var ResourceMap = function(loc) {
 
 		this._mapInfo.resources[name].selected = true;
 
-		console.log(this._mapInfo.resources);
-
-		console.log('Centering on [' + name + '].');
-		console.log(resInfo);
-
 		this.resizeCanvas();
 		this._level = resInfo.level;
 		this._clearCanvas();
@@ -163,18 +157,20 @@ var ResourceMap = function(loc) {
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				var obj = JSON.parse(xmlhttp.responseText);
 				that._mapInfo = obj;
-				console.log(obj);
 			}
 		};
 		xmlhttp.send(null);
 	};
 
 	this.resourceUpdate = function(resources) {
+		if (!this._mapInfo || !this._mapInfo.resources || this._mapInfo.resources.length === 0) {
+			return;
+		}
+
 		for (var r in resources) {
 			var resource = resources[r];
 			this._mapInfo.resources[resource.name].state = resource.state;
 		}
-		console.log(this._mapInfo);
 	};
 
 	this._drawResource = function(resource) {
@@ -221,8 +217,6 @@ var ResourceMap = function(loc) {
 			this._ctx.setTransform(1,0,0,1,0,0);
 			this._ctx.translate(transX, transY);
 			this._ctx.scale(iScale, iScale);
-
-			console.log('New scale: ' + iScale);
 		}
 	};
 
@@ -253,8 +247,6 @@ var ResourceMap = function(loc) {
 	};
 
 	this.resizeCanvas = function() {
-		//console.log(this._c.width);
-		//console.log(this._map);
 
 		this._w = this._c.width = this._map.offsetWidth;
 		this._h = this._c.height = this._map.offsetHeight;
@@ -282,7 +274,6 @@ var ResourceMap = function(loc) {
 		// Dots on an empty page look stupid.
 		if (that._mapInfo && that._background) {
 			var resources = that._mapInfo.resources;
-			//console.log(resources);
 			for (var name in resources) {
 				var resource = resources[name];
 				that._drawResource(resource);
@@ -305,8 +296,6 @@ var ResourceMap = function(loc) {
 	this.setZoom = function(x,y,f) {
 		var t = this._ctx.transformedPoint(x, y);
 		var factor = Math.pow(scale, f);
-
-		console.log('Zoom by ' + factor);
 
 		this._ctx.translate(t.x, t.y);
 		this._ctx.scale(factor, factor);

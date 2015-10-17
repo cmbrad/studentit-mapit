@@ -154,7 +154,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 				},
 				_handleTouchMove: function(e) {
-					console.log(e);
 					if (this.scaling) {
 						var x = 0;
 						var y = 0;
@@ -168,8 +167,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						y /= e.touches.length;
 
 						this.map.setZoom(x - 300, y - 64, 1);
-
-						console.log('(' + x + ',' + y + ')');
 					}
 				},
 				_handleTouchEnd: function() {
@@ -177,7 +174,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_handleMouseWheel: function(e) {
-					console.log(e);
 					var delta = e.wheelDelta ? e.wheelDelta/40 : e.detail ? -e.detail : 0;
 					this.map.setZoom(e.offsetX, e.offsetY, delta);
 				},
@@ -201,8 +197,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 				},
 
-				_siteChanged: function(newSite, oldSite) {
-					console.log('Site changed from ' + oldSite + ' to ' + newSite);
+				_siteChanged: function(newSite) {
 					if (newSite !== '') {
 						this.resource = null;
 						this.hideMap = true;
@@ -218,15 +213,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_resourcesChanged: function(resources) {
-					console.log('Resources: ');
-
 					if(resources.length === 0) {
 						return;
 					}
 
 					var rs = [];
-					console.log(resources);
-
 					for (var l in resources[0].locations) {
 						var location = resources[0].locations[l];
 						rs = rs.concat(location.resources);
@@ -244,13 +235,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 							this.map.doMove(e.detail.x, e.detail.y);
 							break;
 						case 'end':
-							this.map.stopMove();
+							this.map.endMove();
 							break;
 					}
-				},
-
-				_handleMapScroll: function(e) {
-					console.log(e);
 				},
 
 				resize: function() {

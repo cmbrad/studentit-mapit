@@ -60,16 +60,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			},
 
 			_listTap: function(e,detail) {
-				console.log(detail.item.innerText);
 				this.fire('closeDrawer');
 				this.resource = '';
 				this.resource = detail.item.innerText;
 			},
 
-			_handleDragStart: function(e, detail) {
-				console.log('Dragstart');
-				console.log(e);
-				console.log(detail);
+			_handleDragStart: function(e) {
 				var name = e.target.innerText;
 				e.dataTransfer.setData('text/html', name);
 			},

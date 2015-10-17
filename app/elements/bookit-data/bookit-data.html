@@ -68,11 +68,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			_sitesChanged: function(newSites) {
 				if (newSites === null || newSites.length === 0) {
-					console.log('Loading...');
 					this.isLoading = true;
 				} else {
-					console.log('Loaded.');
-					console.log(newSites);
 					this.isLoading = false;
 				}
 			},
