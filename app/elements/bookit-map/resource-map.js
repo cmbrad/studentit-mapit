@@ -313,18 +313,29 @@ var ResourceMap = function(loc) {
 		this._ctx.translate(-t.x, -t.y);
 	};
 
-	this.movePosition = function(x, y) {
-		//console.log('Moving map by (' + x + ', ' + y + ') to (' + this._prevX + ', ' + this._prevY + ') pixels.');
-		if (this._prevX) {
-			this._ctx.translate(x, y);
-			this._prevX = this._prevX + x;
-			this._prevY = this._prevY + y;
-		} else {
-			this._ctx.translate(x, y);
-			this._prevX = x;
-			this._prevY = y;
+	this.startMove = function(x, y) {
+		this._lastPos = this._screenToCanvasPos(x, y);
+	};
+
+	this.doMove = function(x, y) {
+		var pos = this._screenToCanvasPos(x, y);
+
+		if (this._lastPos) {
+			this._ctx.translate(pos.x - this._lastPos.x, pos.y - this._lastPos.y);
 		}
-		//console.log('Location is now (' + this._prevX + ', ' + this._prevY + ') pixels.');
+	};
+
+	this.endMove = function() {
+		this._lastPos= null;
+	};
+
+	this._screenToCanvasPos = function(x, y) {
+		var rect = this._c.getBoundingClientRect();
+
+		return this._ctx.transformedPoint(
+			((x-rect.left)/(rect.right-rect.left)*this._c.width),
+			((y-rect.top)/(rect.bottom-rect.top)*this._c.height)
+		);
 	};
 
 	this._initialize();
