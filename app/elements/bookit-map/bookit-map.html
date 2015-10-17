@@ -206,6 +206,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_focusResourceChanged: function(resource) {
+					console.log('Centering on ' + resource);
 					if (this.map && resource) {
 						this.hideMap = false;
 						this.map.centerOnResource(resource);

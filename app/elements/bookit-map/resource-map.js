@@ -59,7 +59,7 @@ var ResourceMap = function(loc) {
 			return;
 		}
 		this.location = loc;
-
+		this._lastSelected = null;
 		this._clearBackground();
 		this._loadPositions();
 	};
@@ -136,7 +136,7 @@ var ResourceMap = function(loc) {
 		}
 
 		var level = this._mapInfo.levels[resInfo.level];
-	
+
 		if (this._lastSelected) {
 			this._mapInfo.resources[this._lastSelected].selected = false;
 		}
@@ -151,8 +151,16 @@ var ResourceMap = function(loc) {
 	};
 
 	this._loadPositions = function() {
+		// Append timestamp of todays date to request,
+		// need to invalidate the cache just in case updates happen.
+		// Only worth doing once a day though
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;
+		var yyyy = today.getFullYear();
+
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open('GET', 'maps/' + this.location + '.json', true);
+		xmlhttp.open('GET', 'maps/' + this.location + '.json?timestamp=' + mm + dd + yyyy, true);
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
 				var obj = JSON.parse(xmlhttp.responseText);
