@@ -43,6 +43,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				align-items: center;
 				justify-content: center;
 			}
+
+			#bookit_embed {
+				height: 100%;
+				width: 100%;
+			}
 		</style>
 
 		<div id="container">
@@ -198,9 +203,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_siteChanged: function(newSite, oldSite) {
 					console.log('Site changed from ' + oldSite + ' to ' + newSite);
-					this.resource = null;
-					this.hideMap = true;
-					this.map.setLocation(newSite);
+					if (newSite !== '') {
+						this.resource = null;
+						this.hideMap = true;
+						this.map.setLocation(newSite);
+					}
 				},
 
 				_focusResourceChanged: function(resource) {

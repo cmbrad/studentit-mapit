@@ -24,7 +24,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</div>
 			</div>
 			<div id="container">
-				<div class="bar"></div>
+				<div class="bar" style$="{{barWidth(free, total)}}"></div>
+				<div class="bar_background" style$="{{bgWidth(free, total)}}"></div>
 			</div>
 		</div>
         </template>
@@ -37,11 +38,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'usage-summary',
 
 				properties: {
-					foo: {
-						type: String,
-						value: 'usage-summary',
-						notify: true
+					name: {
+						type: String
+					},
+					free: {
+						type: Number
+					},
+					total: {
+						type: Number
+					},
+					min: {
+						type: Number,
+						value: 0
 					}
+				},
+
+				barWidth: function(free,total) {
+					return 'width: ' + (free*100/total) + '%';
+				},
+				bgWidth: function(free,total) {
+					return 'width: ' + (100-(free*100/total)) + '%';
 				}
 			});
 		})();

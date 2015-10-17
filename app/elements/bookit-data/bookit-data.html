@@ -18,8 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			params='{{params}}'
 			handle-as="json"
 			last-response="{{sites}}"
-			last-error="{{bookitError}}"
-			on-response="_handleResponse">
+			last-error="{{bookitError}}">
 		</iron-ajax>
 	</template>
 
@@ -29,13 +28,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			properties: {
 				sites: {
-					notify: true
+					type: Object,
+					notify: true,
+					value: [],
+					observer: '_sitesChanged'
 				},
 
 				site: {
 					type: String,
 					notify: true,
 					observer: '_siteChanged'
+				},
+
+				isLoading: {
+					type: Boolean,
+					value: true,
+					notify: true
 				},
 
 				siteID: {
@@ -58,9 +66,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				this.$.bookitAjax.generateRequest();
 			},
 
-			_handleResponse: function(e, detail) {
-				console.log(e);
-				console.log(detail);
+			_sitesChanged: function(newSites) {
+				if (newSites === null || newSites.length === 0) {
+					console.log('Loading...');
+					this.isLoading = true;
+				} else {
+					console.log('Loaded.');
+					console.log(newSites);
+					this.isLoading = false;
+				}
 			},
 
 			getSiteID: function(site) {

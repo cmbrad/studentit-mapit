@@ -87,7 +87,10 @@ a iron-icon {
 }
 
 .main-drawer-panel {
+	position: relative;
 	top: auto;
+	left: auto;
+	height: 100vh;
 }
 
 .main-drawer-panel:not([narrow])  #back_arrow {
@@ -104,4 +107,9 @@ a iron-icon {
 
 #back_arrow {
 	margin-right: 24px;
+}
+
+#iPages {
+	flex: 1;
+	overflow-y: auto;
 }

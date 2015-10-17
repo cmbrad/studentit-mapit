@@ -36,3 +36,9 @@
 	width: 100%;
 	background-color: #CDDC39;
 }
+
+.bar_background {
+	height: 12px;
+	width: 100%;
+	background-color: #E0E0E0;
+}

@@ -257,7 +257,7 @@ var ResourceMap = function(loc) {
 		//console.log(this._map);
 
 		this._w = this._c.width = this._map.offsetWidth;
-		this._h = this._c.height = this._map.offsetHeight - 64;
+		this._h = this._c.height = this._map.offsetHeight;
 
 		this._scaleToScreen();
 		this._drawMap();

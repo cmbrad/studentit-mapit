@@ -45,28 +45,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			properties: {
 				sites: {
 					type: Object,
-					value: [],
-					observer: '_sitesChanged'
+					value: []
 				},
 
 				isLoading: {
 					type: Boolean,
-					value: false
+					value: true 
 				},
 
 				resource: {
 					type: String,
 					notify: true
-				}
-			},
-
-			_sitesChanged: function(newSites) {
-				if (newSites === null || newSites.length === 0) {
-					console.log('Loading...');
-					this.isLoading = true;
-				} else {
-					console.log('Loaded. - [' + newSites + '].');
-					this.isLoading = false;
 				}
 			},
 
@@ -83,7 +72,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				console.log(detail);
 				var name = e.target.innerText;
 				e.dataTransfer.setData('text/html', name);
-
 			},
 
 			freeResources: function(resources) {

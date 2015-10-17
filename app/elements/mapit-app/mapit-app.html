@@ -21,14 +21,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../routing.html">
 
+<link rel="import" href="../all-summary/all-summary.html">
 <link rel="import" href="../bookit-data/bookit-data.html">
 <link rel="import" href="../bookit-list/bookit-list.html">
+<link rel="import" href="../bookit-map/bookit-map.html">
 
 <dom-module id="mapit-app">
 	<link rel="import" type="css" href="mapit-app.css">
 
 	<template>
-		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}"></bookit-data>
+		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}"></bookit-data>
 
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
 			<div class="nav" drawer>
@@ -90,6 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</div>
 
 			<div main>
+				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
 				<paper-toolbar class="mainToolbar">
 					<paper-icon-button id="menu_btn" icon="menu" paper-drawer-toggle></paper-icon-button>
 					<paper-icon-button id="back_arrow" icon="arrow-back"
@@ -101,7 +104,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           			</paper-toolbar>
 			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
 				<section data-section="summary">
-					<library-summary sites="[[sites]]"></library-summary>
+					<all-summary id="allLibSum" sites="[[sites]]" is-loading="[[isLoading]]"></all-summary>
 				</section>
 
 				<section data-section="library">
@@ -110,25 +113,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					                    narrow="{{_isMobile}}" default-selected="drawer" disable-swipe
 					                    on-iron-select="_onMainDrawerSelect">
         					<paper-header-panel class="list-panel" drawer>
-							<!--<paper-toolbar class="mainToolbar">
-								<paper-icon-button icon="menu" paper-drawer-toggle></paper-icon-button>
-
-								<span class="title">MapIT</span>
-									<paper-icon-button icon="refresh"></paper-icon-button>
-									<paper-icon-button icon="search"></paper-icon-button>
-          						</paper-toolbar>-->
-
 							<div class="fit">
-								<bookit-list sites="[[sites]]" resource="{{resource}}"></bookit-list>
+								<bookit-list sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></bookit-list>
 							</div>
 
 						</paper-header-panel>
 
 						<paper-header-panel class="content-panel" main>
-							<!--<paper-toolbar class="mainToolbar">
-								<paper-icon-button icon="arrow-back" list-toggle></paper-icon-button>
-							</paper-toolbar>-->
-
 							<div class="fit">
 								<bookit-map site="{{site}}" focus-resource="[[resource]]" resources="[[sites]]"></bookit-map>
 							</div>
@@ -137,6 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					</paper-drawer-panel>
 				</section>
 			</iron-pages>
+			</div>
 			</div>
 		</paper-drawer-panel>
 	</template>
@@ -187,6 +179,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
 		document.getElementById('mainDrawerPanel').closeDrawer();
 	});
+
+	document.getElementById('allLibSum').style.height = (window.innerHeight - 64) + 'px';
+	document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - 64) + 'px';
       },
     });
 

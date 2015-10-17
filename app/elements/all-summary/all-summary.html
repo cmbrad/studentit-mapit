@@ -10,34 +10,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<dom-module id="library-summary">
+<dom-module id="all-summary">
+	<link rel="import" type="css" href="all-summary.css">
+
 	<template>
-		<style>
-			:host {
-				display: block;
-				height: 100vh;
-				overflow: scroll;
-			}
-
-			#cards {
-				@apply(--layout-vertical);
-				@apply(--center-justified);
-				max-width: 600px;
-				margin-left: auto;
-				margin-right: auto;
-
-				padding-top: 24px;
-				padding-bottom: 24px;
-			}
-
-			paper-card {
-				width: 100%;
-				margin-bottom: 16px;
-			}
-
-		</style>
-
-		<div id="cards">
+		<div id="loading" hidden$="[[!isLoading]]">
+			<paper-spinner alt="Loading resource list" active></paper-spinner>
+		</div>
+		<div id="cards" hidden$="[[isLoading]]">
 			<template is="dom-repeat" items="[[sites]]" as="site">
 				<paper-card heading="[[site.name]]"> 
 					<template is="dom-repeat" items="[[site.locations]]" as="location">
@@ -49,19 +29,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</paper-card>
 			</template>
 		</div>
-
 	</template>
 
 	<script>
 		(function() {
 		'use strict';
-	
 			Polymer({
-				is: 'library-summary',
+				is: 'all-summary',
 	
 				properties: {
 					sites: {
-						type: Object
+						type: Object,
+						value: []
+					},
+
+					isLoading: {
+						type: Boolean,
+						value: true
 					}
 				},
 

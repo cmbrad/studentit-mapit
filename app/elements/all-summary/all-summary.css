@@ -1,0 +1,36 @@
+:host {
+	display: block;
+	overflow: auto;
+}
+
+#cards {
+	@apply(--layout-horizontal);
+	@apply(--layout-wrap);
+	@apply(‑‑layout-around-justified);
+
+	max-width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+paper-card {
+	width: 100%;
+	margin-bottom: 16px;
+}
+
+#loading {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+paper-spinner {
+	width: 60px;
+	height: 60px;
+}
+
