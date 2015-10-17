@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
@@ -133,58 +134,68 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</paper-drawer-panel>
 	</template>
 
-  <script>
+	<script>
+		(function() {
+                        'use strict';
 
-    Polymer({
+			Polymer({
+				is: 'mapit-app',
 
-      is: 'mapit-app',
+				behaviors: [
+					Polymer.IronResizableBehavior
+				],
+				listeners: {
+					'iron-resize': 'resize'
+				},
 
-      _computeListWidth: function(isMobile) {
-        // when in mobile screen size, make the list be 100% width to cover the whole screen
-        return isMobile ? '100%' : '360px';
-      },
+				attached: function() {
+					document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
+						document.getElementById('mainDrawerPanel').closeDrawer();
+					});
+					this.resize();
+				},
 
-	_handleBackPress: function() {
-		console.log('o.o');
-		document.getElementById('mainDrawerPanel').openDrawer();
-	},
+				resize: function() {
+					document.getElementById('allLibSum').style.height = (window.innerHeight - 64) + 'px';
+					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - 64) + 'px';
+				},
 
-	_onMainDrawerSelect: function(e, detail) {
-		var drawerNarrow = document.getElementById('mainDrawerPanel').narrow;
-		var librarySelected = document.getElementById('iPages').selected === 'library';
+				_computeListWidth: function(isMobile) {
+					// when in mobile screen size, make the list be 100% width to cover the whole screen
+					return isMobile ? '100%' : '360px';
+				},
 
-		if (detail.item.id === 'main' || detail.item.id === 'drawer') {
-			var hidden = !(detail.item.id === 'main' && drawerNarrow && librarySelected);
-			document.getElementById('back_arrow').hidden = hidden;
+				_handleBackPress: function() {
+					console.log('o.o');
+					document.getElementById('mainDrawerPanel').openDrawer();
+				},
 
-			if (hidden) {
-				document.getElementById('menu_btn').style.display = 'block';
-			} else {
-				document.getElementById('menu_btn').style.display = 'none';
-			}
-		}
-	},
+				_onMainDrawerSelect: function(e, detail) {
+					var drawerNarrow = document.getElementById('mainDrawerPanel').narrow;
+					var librarySelected = document.getElementById('iPages').selected === 'library';
 
-	hideBackArrow: function() {
-		if (document.getElementById('mainDrawerPanel').narrow &&
-		    document.getElementById('iPages').selected === 'library') {
-			document.getElementById('menu_btn').style.display = 'none';
-			return false;
-		}
-		document.getElementById('menu_btn').style.display = 'block';
-		return true;
-	},
+					if (detail.item.id === 'main' || detail.item.id === 'drawer') {
+						var hidden = !(detail.item.id === 'main' && drawerNarrow && librarySelected);
+						document.getElementById('back_arrow').hidden = hidden;
 
-      attached: function() {
-	document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
-		document.getElementById('mainDrawerPanel').closeDrawer();
-	});
+						if (hidden) {
+							document.getElementById('menu_btn').style.display = 'block';
+						} else {
+							document.getElementById('menu_btn').style.display = 'none';
+						}
+					}
+				},
 
-	document.getElementById('allLibSum').style.height = (window.innerHeight - 64) + 'px';
-	document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - 64) + 'px';
-      },
-    });
-
-  </script>
-
+				hideBackArrow: function() {
+					if (document.getElementById('mainDrawerPanel').narrow &&
+					    document.getElementById('iPages').selected === 'library') {
+						document.getElementById('menu_btn').style.display = 'none';
+						return false;
+					}
+					document.getElementById('menu_btn').style.display = 'block';
+					return true;
+				}
+			});
+		})();
+	</script>
 </dom-module>
