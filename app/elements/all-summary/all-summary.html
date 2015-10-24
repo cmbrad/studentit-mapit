@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</div>
 		<div id="cards" hidden$="[[isLoading]]">
 			<template is="dom-repeat" items="[[sites]]" as="site">
-				<paper-card heading="[[site.name]]"> 
+				<paper-card heading="[[site.name]]" style$="[[getStyle()]]"> 
 					<template is="dom-repeat" items="[[site.locations]]" as="location">
 						<div class="list" role="list">
 							<usage-summary name="[[location.name]]" free="{{freeResources(location.resources)}}"
@@ -29,6 +29,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</paper-card>
 			</template>
 		</div>
+
+		<iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 	</template>
 
 	<script>
@@ -46,7 +48,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					isLoading: {
 						type: Boolean,
 						value: true
+					},
+
+					_isMobile: {
+						type: Boolean,
+						observer: '_isMobileChanged'
 					}
+				},
+
+				getStyle: function() {
+					if (this._isMobile) {
+						return 'width: 100%;';
+					} else {
+						return 'width: 50%;';
+					}
+				},
+
+				_isMobileChanged: function(isMobile) {
+					console.log('Is Mobile :' + isMobile);
+					console.log(this.$.cards.style);
+					this.$.cards.style.width = isMobile ? '100%' : '80%';
+
+					this.updateStyles();
+
+					/*this.$.
+					this.mainMode = isMobile ? 'seamed' : 'cover';
+					this.drawerWidth = isMobile ? '100%' : '320px';
+					this.toolbarClass = isMobile ? '' : 'tall';
+					this.updateStyles();*/
 				},
 
 				freeResources: function(resources) {

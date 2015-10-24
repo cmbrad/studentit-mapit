@@ -1,24 +1,25 @@
 :host {
 	display: block;
 	overflow: auto;
+	background: #E5E5E5;
 }
 
 #cards {
-	@apply(--layout-horizontal);
+	@apply(--layout-vertical);
 	@apply(--layout-wrap);
 	@apply(‑‑layout-around-justified);
 
-	max-width: 900px;
+	width: 90%;
+
 	margin-left: auto;
 	margin-right: auto;
 
-	padding-top: 24px;
-	padding-bottom: 24px;
+	padding-top: 16px;
+	padding-bottom: 16px;
 }
 
 paper-card {
-	width: 100%;
-	margin-bottom: 16px;
+	margin-bottom: 8px;
 }
 
 #loading {
