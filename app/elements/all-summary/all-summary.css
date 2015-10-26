@@ -5,9 +5,8 @@
 }
 
 #cards {
-	@apply(--layout-vertical);
-	@apply(--layout-wrap);
-	@apply(‑‑layout-around-justified);
+	column-count: 2;
+	column-gap: 8px;
 
 	width: 90%;
 
@@ -20,6 +19,7 @@
 
 paper-card {
 	margin-bottom: 8px;
+	width: 100%;
 }
 
 #loading {

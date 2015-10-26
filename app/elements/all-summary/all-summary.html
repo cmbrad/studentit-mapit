@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</div>
 		<div id="cards" hidden$="[[isLoading]]">
 			<template is="dom-repeat" items="[[sites]]" as="site">
-				<paper-card heading="[[site.name]]" style$="[[getStyle()]]"> 
+				<paper-card heading="[[site.name]]"> 
 					<template is="dom-repeat" items="[[site.locations]]" as="location">
 						<div class="list" role="list">
 							<usage-summary name="[[location.name]]" free="{{freeResources(location.resources)}}"
@@ -30,6 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</template>
 		</div>
 
+		<iron-media-query query="(max-width: 1280px)" query-matches="{{_isLarge}}"></iron-media-query>
 		<iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 	</template>
 
@@ -50,24 +51,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						value: true
 					},
 
+					_isLarge: {
+						type: Boolean,
+						observer: '_isLargeChanged'
+					},
+
 					_isMobile: {
 						type: Boolean,
 						observer: '_isMobileChanged'
 					}
 				},
 
-				getStyle: function() {
-					if (this._isMobile) {
-						return 'width: 100%;';
-					} else {
-						return 'width: 50%;';
-					}
+				_isLargeChanged: function(isLarge) {
+					this.$.cards.style.WebkitColumnCount = isLarge ? 2 : 3;
+					this.$.cards.style.MozColumnCount    = isLarge ? 2 : 3;
+					this.$.cards.style.columnCount       = isLarge ? 2 : 3;
+
+					this.updateStyles();
 				},
 
 				_isMobileChanged: function(isMobile) {
-					console.log('Is Mobile :' + isMobile);
-					console.log(this.$.cards.style);
 					this.$.cards.style.width = isMobile ? '100%' : '80%';
+					this.$.cards.style.WebkitColumnCount = isMobile ? 1 : 3;
+					this.$.cards.style.MozColumnCount = isMobile ? 1 : 3;
+					this.$.cards.style.columnCount = isMobile ? 1 : 3;
 
 					this.updateStyles();
 
