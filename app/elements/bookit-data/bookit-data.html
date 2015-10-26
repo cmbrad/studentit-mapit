@@ -75,7 +75,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				// Delete the first element of the array which is the _default site.
 				// We do not care about it.
-				this.sites.splice(0,1);
+				if (this.sites && this.sites.length > 0 && this.sites[0].name === '_default') {
+					this.sites.splice(0,1);
+				}
 			},
 
 			getSiteID: function(site) {
