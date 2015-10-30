@@ -122,8 +122,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						notify: true
 					},
 					scaling: {
-						type: Boolean,
-						value: false
+						type: Number,
+						value: null
 					}
 				},
 
@@ -149,11 +149,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_handleTouchStart: function(e) {
 					if (e.touches.length === 2) {
-						this.scaling = true;
+						this.scaling =
+							Math.sqrt(
+								(e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientX-e.touches[1].clientX) +
+								(e.touches[0].clientY-e.touches[1].clientY) * (e.touches[0].clientY-e.touches[1].clientY));
 					}
 				},
 				_handleTouchMove: function(e) {
-					if (this.scaling) {
+					if (this.scaling !== null) {
 						var x = 0;
 						var y = 0;
 
@@ -162,18 +165,31 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 							y += e.touches[i].pageY - e.touches[i].target.offsetTop;
 						}
 
+						console.log(e);
+						var dist =
+							Math.sqrt(
+								(e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientX-e.touches[1].clientX) +
+								(e.touches[0].clientY-e.touches[1].clientY) * (e.touches[0].clientY-e.touches[1].clientY));
+
 						x /= e.touches.length;
 						y /= e.touches.length;
 
-						this.map.setZoom(x - 300, y - 64, 1);
+						var factor = dist - this.scaling;
+
+						console.log(factor / 12);
+
+						this.map.setZoom(x, y, factor / 12);
+
+						this.scaling = dist;
 					}
 				},
 				_handleTouchEnd: function() {
-					this.scaling = false;
+					this.scaling = null;
 				},
 
 				_handleMouseWheel: function(e) {
 					var delta = e.wheelDelta ? e.wheelDelta/40 : e.detail ? -e.detail : 0;
+					console.log(delta);
 					this.map.setZoom(e.offsetX, e.offsetY, delta);
 				},
 
@@ -231,7 +247,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 							this.map.startMove(e.detail.x, e.detail.y);
 							break;
 						case 'track':
-							this.map.doMove(e.detail.x, e.detail.y);
+							if (!this.scaling) {
+								this.map.doMove(e.detail.x, e.detail.y);
+							}
 							break;
 						case 'end':
 							this.map.endMove();
