@@ -95,7 +95,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<div main>
 				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
 				<paper-toolbar class="mainToolbar">
-					<paper-icon-button id="menu_btn" icon="menu" paper-drawer-toggle></paper-icon-button>
+					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 					<paper-icon-button id="back_arrow" icon="arrow-back"
 					                   on-tap="_handleBackPress" hidden="{{hideBackArrow()}}"></paper-icon-button>
 
@@ -132,6 +132,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</div>
 			</div>
 		</paper-drawer-panel>
+
+		<iron-media-query query="(max-width: 1280px)" query-matches="{{_showMenuBtn}}"></iron-media-query>
 	</template>
 
 	<script>
