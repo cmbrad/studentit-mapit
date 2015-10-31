@@ -94,7 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			<div main>
 				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
-				<paper-toolbar class="mainToolbar">
+				<paper-toolbar id="pageToolbar" class="mainToolbar">
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 					<paper-icon-button id="back_arrow" icon="arrow-back"
 					                   on-tap="_handleBackPress" hidden="{{hideBackArrow()}}"></paper-icon-button>
@@ -158,8 +158,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				resize: function() {
-					document.getElementById('allLibSum').style.height = (window.innerHeight - 64) + 'px';
-					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - 64) + 'px';
+					var toolbarHeight = this.$.pageToolbar.clientHeight;
+					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
+					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
 
 				_computeListWidth: function(isMobile) {
