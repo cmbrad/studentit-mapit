@@ -31,7 +31,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<link rel="import" type="css" href="mapit-app.css">
 
 	<template>
-		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}"></bookit-data>
+		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}" refresh="{{refresh}}"></bookit-data>
 
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
 			<div class="nav" drawer>
@@ -100,7 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					                   on-tap="_handleBackPress" hidden="{{hideBackArrow()}}"></paper-icon-button>
 
 					<span class="title">MapIT</span>
-						<paper-icon-button icon="refresh"></paper-icon-button>
+						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
 						<paper-icon-button icon="search"></paper-icon-button>
           			</paper-toolbar>
 			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
@@ -187,6 +187,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 							document.getElementById('menu_btn').style.display = 'none';
 						}
 					}
+				},
+
+				_tapRefresh: function() {
+					console.log('tap tap');
+					this.refresh = true;
 				},
 
 				hideBackArrow: function() {
