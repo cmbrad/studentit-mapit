@@ -23,7 +23,6 @@ var glob = require('glob');
 var historyApiFallback = require('connect-history-api-fallback');
 var packageJson = require('./package.json');
 var crypto = require('crypto');
-var polybuild = require('polybuild');
 
 var AUTOPREFIXER_BROWSERS = [
   'ie >= 10',
@@ -59,10 +58,10 @@ var jshintTask = function (src) {
 
 var imageOptimizeTask = function (src, dest) {
   return gulp.src(src)
-    .pipe($.cache($.imagemin({
+    .pipe($.imagemin({
       progressive: true,
       interlaced: true
-    })))
+    }))
     .pipe(gulp.dest(dest))
     .pipe($.size({title: 'images'}));
 };
@@ -130,10 +129,6 @@ gulp.task('copy', function () {
     dot: true
   }).pipe(gulp.dest('dist'));
 
-  var maps = gulp.src([
-    'app/maps/*',
-  ]).pipe(gulp.dest('dist/maps'));
-
   var bower = gulp.src([
     'bower_components/**/*'
   ]).pipe(gulp.dest('dist/bower_components'));
@@ -153,7 +148,7 @@ gulp.task('copy', function () {
     .pipe($.rename('elements.vulcanized.html'))
     .pipe(gulp.dest('dist/elements'));
 
-  return merge(app, maps, bower, elements, vulcanized, swBootstrap, swToolbox)
+  return merge(app, bower, elements, vulcanized, swBootstrap, swToolbox)
     .pipe($.size({title: 'copy'}));
 });
 
@@ -171,27 +166,17 @@ gulp.task('html', function () {
     'dist');
 });
 
-// Polybuild will take care of inlining HTML imports,
-// scripts and CSS for you.
+// Vulcanize granular configuration
 gulp.task('vulcanize', function () {
-  return gulp.src('dist/index.html')
-    .pipe(polybuild({maximumCrush: true}))
-    .pipe(gulp.dest('dist/'));
-});
-
-// If you require more granular configuration of Vulcanize
-// than polybuild provides, follow instructions from readme at:
-// https://github.com/PolymerElements/polymer-starter-kit/#if-you-require-more-granular-configuration-of-vulcanize-than-polybuild-provides-you-an-option-by
-
-// Rename Polybuild's index.build.html to index.html
-gulp.task('rename-index', function () {
-  return gulp.src('dist/index.build.html')
-    .pipe($.rename('index.html'))
-    .pipe(gulp.dest('dist/'));
-});
-
-gulp.task('remove-old-build-index', function () {
-  return del('dist/index.build.html');
+  var DEST_DIR = 'dist/elements';
+  return gulp.src('dist/elements/elements.vulcanized.html')
+    .pipe($.vulcanize({
+      stripComments: true,
+      inlineCss: true,
+      inlineScripts: true
+    }))
+    .pipe(gulp.dest(DEST_DIR))
+    .pipe($.size({title: 'vulcanize'}));
 });
 
 // Generate config data for the <sw-precache-cache> element.
@@ -289,12 +274,12 @@ gulp.task('serve:dist', ['default'], function () {
 
 // Build production files, the default task
 gulp.task('default', ['clean'], function (cb) {
-  // Uncomment 'cache-config' after 'rename-index' if you are going to use service workers.
+  // Uncomment 'cache-config' if you are going to use service workers.
   runSequence(
     ['copy', 'styles'],
     'elements',
     ['jshint', 'images', 'fonts', 'html'],
-    'vulcanize','rename-index', 'remove-old-build-index', // 'cache-config',
+    'vulcanize', // 'cache-config',
     cb);
 });
 
