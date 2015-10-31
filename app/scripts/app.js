@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Close drawer after menu item is selected if drawerPanel is narrow
   app.onDataRouteClick = function() {
-    var drawerPanel = Polymer.dom(document).querySelector('#navDrawerPanel');
+    var drawerPanel = document.querySelector('#navDrawerPanel');
     if (drawerPanel.narrow) {
       drawerPanel.closeDrawer();
     }
@@ -68,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   // Scroll page to top and expand header
   app.scrollPageToTop = function() {
-    app.$.mainContainer.scrollToTop(true);
+    app.$.navDrawerPanel.scrollTop = 0;
   };
 
 })(document);
