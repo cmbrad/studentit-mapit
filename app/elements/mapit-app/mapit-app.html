@@ -33,7 +33,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<template>
 		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}" refresh="{{refresh}}"></bookit-data>
 
-		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
+		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px" on-transitionend="_onDrawerAnimationFinish">
 			<div class="nav" drawer>
 				<paper-toolbar id="drawerToolbar">
 					<span class="paper-font-title">Menu</span>
@@ -93,6 +93,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			Polymer({
 				is: 'mapit-app',
 
+				properties: {
+					drawerOpen: {
+						type: Boolean,
+						value: false
+					}
+				},
 				behaviors: [
 					Polymer.IronResizableBehavior
 				],
@@ -118,6 +124,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
 
+				_onDrawerAnimationFinish: function() {
+					// Set the property which tells us whether the drawer is open or not
+					// since the drawer doesn't give us that information for some reason.
+					// TODO: Modify drawer and upstream changes.
+					var selected = document.querySelector('#navDrawerPanel').selected;
+					this.drawerOpen = (selected === 'drawer');
+
+					// The variable _site is set if there's a site change queued up
+					// waiting for the drawer animation to finish, and now it has!
+					if (this._site !== '') {
+						// set the actual site value and then reset the temporary one
+						// so that we don't repetitively set the site and thus spam
+						// network requests.
+						var bookit = document.querySelector('#bookit_data');
+						bookit.site = this._site;
+						this._site = '';
+					}
+				},
 
 				_computeListWidth: function(isMobile) {
 					// when in mobile screen size, make the list be 100% width to cover the whole screen

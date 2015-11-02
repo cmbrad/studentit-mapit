@@ -11,6 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script src="../bower_components/page/page.js"></script>
 <script>
   window.addEventListener('WebComponentsReady', function() {
+    var mapit = document.querySelector('mapit-app');
     var bookit = document.querySelector('#bookit_data');
     var iPages = document.querySelector('#iPages');
 
@@ -24,49 +25,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       next();
     }
 
+    function setSite(site, selected) {
+        // If the drawer is open then don't trigger an actual
+        // site change as it makes the drawer animation lag.
+        // Instead set a temporary variable and then do the actual
+        // change elsewhere after teh animation has finished.
+        if (mapit.drawerOpen) {
+            mapit._site = site;
+        } else {
+            bookit.site = site;
+        }
+        iPages.selected = selected;
+    }
+
     page('/', scrollToTop, function () {
-      bookit.site = '';
-      iPages.selected = 'summary';
+      setSite('', 'summary');
     });
 
     page('/summary', scrollToTop, function () {
-      bookit.site = '';
-      iPages.selected = 'summary';
+      setSite('', 'summary');
     });
 
     page('/architecture', scrollToTop, function () {
-      bookit.site = 'architecture';
-      iPages.selected = 'library';
+      setSite('architecture', 'library');
     });
 
     page('/baillieu', scrollToTop, function () {
-      bookit.site = 'baillieu';
-      iPages.selected = 'library';
+      setSite('baillieu', 'library');
     });
 
     page('/brownless', scrollToTop, function () {
-      bookit.site = 'brownless';
-      iPages.selected = 'library';
+      setSite('brownless', 'library');
     });
 
     page('/erc', scrollToTop, function () {
-      bookit.site = 'erc';
-      iPages.selected = 'library';
+      setSite('erc', 'library');
     });
 
     page('/giblin_eunson', scrollToTop, function () {
-      bookit.site = 'giblin_eunson';
-      iPages.selected = 'library';
+      setSite('giblin_eunson', 'library');
     });
 
     page('/law', scrollToTop, function () {
-      bookit.site = 'law';
-      iPages.selected = 'library';
+      setSite('law', 'library');
     });
 
     page('/lenton_parr', scrollToTop, function () {
-      bookit.site = 'lenton_parr';
-      iPages.selected = 'library';
+      setSite('lenton_parr', 'library');
     });
 
     page('*', function() {
