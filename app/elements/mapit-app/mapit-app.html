@@ -39,57 +39,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<span class="paper-font-title">Menu</span>
 				</paper-toolbar>
 
-				<paper-menu class="lib_list" attr-for-selected="data-route"
-				            selected="{{route}}" on-tap="onDataRouteClick">
-					<a data-route="summary" href="/summary">
-						<paper-item>
-							<iron-icon icon="info"></iron-icon>
-							<span>Summary</span>
-						</paper-item>
-					</a>
-					<a data-route="architecture" href="/architecture">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Architecture</span>
-						</paper-item>
-					</a>
-					<a data-route="library" href="/baillieu">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Baillieu</span>
-						</paper-item>
-					</a>
-					<a data-route="brownless" href="/brownless">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Brownless</span>
-						</paper-item>
-					</a>
-					<a data-route="erc" href="/erc">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>ERC</span>
-						</paper-item>
-					</a>
-					<a data-route="giblin_eunson" href="/giblin_eunson">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Giblin Eunson</span>
-						</paper-item>
-					</a>
-					<a data-route="law" href="/law">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Law</span>
-						</paper-item>
-					</a>
-					<a data-route="lenton_parr" href="/lenton_parr">
-						<paper-item>
-							<iron-icon icon="room"></iron-icon>
-							<span>Lenton Parr</span>
-						</paper-item>
-					</a>
-				</paper-menu>
+				<site-list></site-list>
 			</div>
 
 			<div main>
@@ -154,6 +104,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
 						document.getElementById('mainDrawerPanel').closeDrawer();
 					});
+
+					document.querySelector('site-list').addEventListener('tap-item', function() {
+						document.getElementById('navDrawerPanel').closeDrawer();
+					});
+
 					this.resize();
 				},
 
@@ -162,6 +117,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
 					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
+
 
 				_computeListWidth: function(isMobile) {
 					// when in mobile screen size, make the list be 100% width to cover the whole screen

@@ -1,0 +1,53 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="site-list">
+<template>
+	<style>
+		:host {
+			display: block;
+		}
+
+		paper-menu {
+			padding: 0;
+		}
+	</style>
+
+	<paper-menu attr-for-selected="data-route" selected="{{route}}" selectable="site-listitem" on-tap="_onTapItem">
+		<site-listheader text="Sites"></site-listheader>
+		<site-listitem route="summary" icon="info" text="Summary"></site-listitem>
+		<site-listitem route="nearby" icon="info" text="Nearby Resources"></site-listitem>
+
+		<site-listheader text="Sites"></site-listheader>
+		<site-listitem route="architecture" icon="room" text="Architecture"></site-listitem>
+		<site-listitem route="baillieu" icon="room" text="Baillieu"></site-listitem>
+		<site-listitem route="brownless" icon="room" text="Brownless"></site-listitem>
+		<site-listitem route="erc" icon="room" text="ERC"></site-listitem>
+		<site-listitem route="giblin_eunson" icon="room" text="Giblin Eunson"></site-listitem>
+		<site-listitem route="law" icon="room" text="Law"></site-listitem>
+		<site-listitem route="lenton_parr" icon="room" text="Lenton Parr"></site-listitem>
+	</template>
+
+	<script>
+		(function() {
+			'use strict';
+
+			Polymer({
+				is: 'site-list',
+
+				_onTapItem: function() {
+					this.fire('tap-item', {});
+				}
+			});
+		})();
+	</script>
+</dom-module>
