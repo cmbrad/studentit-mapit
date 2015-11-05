@@ -4,24 +4,20 @@
         "name": "Baillieu"
     },
     "levels": {
-        "1": {
-            "filename": "baillieu_01.png",
-            "order": ""
-        },
-        "2": {
-            "filename": "baillieu_02.png",
+        "LG": {
+            "filename": "baillieu_lg.png",
             "order": ""
         },
         "G": {
             "filename": "baillieu_g.png",
             "order": ""
         },
-        "LG": {
-            "filename": "baillieu_lg.png",
+        "1": {
+            "filename": "baillieu_01.png",
             "order": ""
         },
-        "Not": {
-            "filename": "baillieu_not.png",
+        "2": {
+            "filename": "baillieu_02.png",
             "order": ""
         }
     },
@@ -865,11 +861,6 @@
             "level": "G",
             "x": 374.6851501464844,
             "y": 471.9051513671875
-        },
-        "PC-Not-Exist": {
-            "level": "Not",
-            "x": 0,
-            "y": 0
         },
         "PGrad Room 203": {
             "level": "2",
