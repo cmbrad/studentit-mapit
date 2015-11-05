@@ -57,17 +57,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</style>
 
 		<div id="container">
-			<div id="info" hidden$="[[!hideMap]]">
-				<div>
-					<span>Select a resource to begin</span>
-				</div>
-			</div>
-			<map-levelselector map-data="[[mapData]]"></map-levelselector>
+			<map-levelselector map-data="[[mapData]]" level="{{level}}"></map-levelselector>
+
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
-			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"
-			     on-touchstart="_handleTouchStart" on-touchmove="_handleTouchMove"
-			     on-touchend="_handleTouchEnd">
+			     on-mousewheel="_handleMouseWheel" on-touchstart="_handleTouchStart"
+			     on-touchmove="_handleTouchMove" on-touchend="_handleTouchEnd">
 			</div>
 		</div>
 	</template>
@@ -93,44 +88,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						observer: '_resourcesChanged'
 					},
 					mapData: {
-						type: Object
+						type: Object,
+						observer: '_mapDataChanged'
 					},
+					level: {
+						type: String,
+						observer: '_levelChanged'
+					},
+					
 					map: {
 						type: Object,
 						notify: true,
 						value: null
-					},
-					hideMap: {
-						type: Boolean,
-						value: true
-					},
-					xPos: {
-						type: Number,
-						value: 0,
-						notify: true,
-						reflectToAttribute: true
-					},
-					yPos: {
-						type: Number,
-						value: 0,
-						notify: true,
-						reflectToAttribute: true
-					},
-					zoom: {
-						type: Number,
-						value: 1.0,
-						observer: '_zoomChanged',
-						notify: true
-					},
-					maxZoom: {
-						type: Number,
-						value: 10.0,
-						notify: true
-					},
-					minZoom: {
-						type: Number,
-						value: 0.2,
-						notify: true
 					},
 					scaling: {
 						type: Number,
@@ -143,10 +112,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				],
 				listeners: {
 					'iron-resize': 'resize'
-				},
-
-				attached: function() {
-					this._initMap();
 				},
 
 				_handleDragover: function(e) {
@@ -204,6 +169,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					this.map.setZoom(e.offsetX, e.offsetY, delta);
 				},
 
+				_mapDataChanged: function() {
+					this._initMap();
+				},
+
+				_levelChanged: function(level) {
+					this.map.setLevel(level);
+				},
+
 				_initMap: function() {
 					if (this.map) {
 						console.log('Map already initialized.');
@@ -215,31 +188,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 					/*global ResourceMap */
 					this.map = new ResourceMap(this.site);
-				},
-
-				_zoomChanged: function() {
-					if (this.map) {
-						this.map.setZoom(Number(this.zoom));
-					}
+					this.map.setMapData(this.mapData);
+					this.map.resourceUpdate(this.resources);
+					this.map.setLevel(Object.keys(this.mapData.levels)[0]);
 				},
 
 				_siteChanged: function(newSite) {
-					if (newSite !== '') {
+					if (this.map && newSite && newSite !== '') {
 						this.resource = null;
-						this.hideMap = true;
 						this.map.setLocation(newSite);
 					}
 				},
 
 				_focusResourceChanged: function(resource) {
 					if (this.map && resource) {
-						this.hideMap = false;
 						this.map.centerOnResource(resource);
 					}
 				},
 
 				_resourcesChanged: function(resources) {
-					if(resources.length === 0) {
+					if(!this.map || resources.length === 0) {
 						return;
 					}
 

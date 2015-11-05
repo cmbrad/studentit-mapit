@@ -61,7 +61,6 @@ var ResourceMap = function(loc) {
 		this.location = loc;
 		this._lastSelected = null;
 		this._clearBackground();
-		this._loadPositions();
 	};
 
 	this._createMap = function() {
@@ -109,9 +108,6 @@ var ResourceMap = function(loc) {
 				'y':     resource.y
 
 			};
-			
-
-			//out['resources'][resource]
 		}
 
 		var json = JSON.stringify(out, null, 4);
@@ -135,7 +131,7 @@ var ResourceMap = function(loc) {
 			return;
 		}
 
-		var level = this._mapInfo.levels[resInfo.level];
+		//var level = this._mapInfo.levels[resInfo.level];
 
 		if (this._lastSelected) {
 			this._mapInfo.resources[this._lastSelected].selected = false;
@@ -144,30 +140,20 @@ var ResourceMap = function(loc) {
 
 		this._mapInfo.resources[name].selected = true;
 
-		this.resizeCanvas();
-		this._level = resInfo.level;
-		this._clearCanvas();
-		this._setBackground(level.filename);
+		this.setLevel(resInfo.level);
 	};
 
-	this._loadPositions = function() {
-		// Append timestamp of todays date to request,
-		// need to invalidate the cache just in case updates happen.
-		// Only worth doing once a day though
-		var today = new Date();
-		var dd = today.getDate();
-		var mm = today.getMonth()+1;
-		var yyyy = today.getFullYear();
+	this.setMapData = function(mapData) {
+		this._mapInfo = mapData;
+	};
 
-		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.open('GET', 'maps/' + this.location + '.json?timestamp=' + mm + dd + yyyy, true);
-		xmlhttp.onreadystatechange = function() {
-			if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-				var obj = JSON.parse(xmlhttp.responseText);
-				that._mapInfo = obj;
-			}
-		};
-		xmlhttp.send(null);
+	this.setLevel = function(name) {
+		var level = this._mapInfo.levels[name];
+
+		this.resizeCanvas();
+		this._level = name;
+		this._clearCanvas();
+		this._setBackground(level.filename);
 	};
 
 	this.resourceUpdate = function(resources) {
@@ -177,7 +163,12 @@ var ResourceMap = function(loc) {
 
 		for (var r in resources) {
 			var resource = resources[r];
-			this._mapInfo.resources[resource.name].state = resource.state;
+
+			if (resource.name in this._mapInfo.resources) {
+				this._mapInfo.resources[resource.name].state = resource.state;
+			} else {
+				console.log('Could not update resource [' + resource.name + '] as it does not exist.');
+			}
 		}
 	};
 
