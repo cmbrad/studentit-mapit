@@ -40,6 +40,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</style>
 
+		<map-data data-response="{{mapData}}" site="[[site]]"></map-data>
+
 		<paper-tabs selected="{{selected}}">
 			<paper-tab>Summary</paper-tab>
 			<paper-tab>Map</paper-tab>
@@ -47,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 		<iron-pages selected="[[selected]]">
 			<site-summary sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></site-summary>
-			<bookit-map site="{{site}}" focus-resource="[[resource]]" resources="[[sites]]"></bookit-map>
+			<bookit-map site="[[site]]" focus-resource="[[resource]]" resources="[[sites]]" map-data="[[mapData]]"></bookit-map>
 		</iron-pages>
 	</template>
 

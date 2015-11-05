@@ -38,7 +38,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<div class="card-content">
 				<paper-dropdown-menu label="Level">
 					<paper-menu class="dropdown-content" selected="[[selected]]">
-						<template is="dom-repeat" items="[[levels]]" as="level">
+						<template is="dom-repeat" items="[[_levels]]" as="level">
 							<paper-item>Level [[level]]</paper-item>
 						</template>
 					</paper-menu>
@@ -55,15 +55,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'map-levelselector',
 
 				properties: {
-					levels: {
+					mapData: {
 						type: Object,
-						value: ['1','2','3','4','5']
+						observer: '_mapDataChanged'
 					},
 					selected: {
 						type: String,
 						value: '',
 						notify: true
+					},
+
+					_levels: {
+						type: Object,
+						value: ['1','2','3','4','5']
 					}
+				},
+
+				_mapDataChanged: function(mapData) {
+					this._levels = Object.keys(mapData.levels);
 				}
 			});
 		})();

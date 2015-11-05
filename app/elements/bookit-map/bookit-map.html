@@ -62,7 +62,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<span>Select a resource to begin</span>
 				</div>
 			</div>
-			<map-levelselector></map-levelselector>
+			<map-levelselector map-data="[[mapData]]"></map-levelselector>
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
 			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"
@@ -91,6 +91,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					resources: {
 						type: Object,
 						observer: '_resourcesChanged'
+					},
+					mapData: {
+						type: Object
 					},
 					map: {
 						type: Object,
