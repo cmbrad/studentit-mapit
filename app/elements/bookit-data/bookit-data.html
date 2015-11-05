@@ -37,6 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				site: {
 					type: String,
 					notify: true,
+					value: '',
 					observer: '_siteChanged'
 				},
 
@@ -67,12 +68,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			_refreshChanged: function(refresh) {
 				if (refresh) {
+					console.log('Refreshing site ' + this.site);
 					this.$.bookitAjax.generateRequest();
 					this.refresh = false;
 				}
 			},
 
-			_siteChanged: function() {
+			_siteChanged: function(site) {
+				console.log('Setting site to ' + site);
 				this.sites = [];
 				this.params = {
 					'url': 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + this.getSiteID(this.site),

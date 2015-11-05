@@ -1,0 +1,207 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="site-summary">
+	<template>
+		<style>
+			:host {
+				display: block;
+				padding: 0;
+			}
+
+			paper-card {
+				height: 70px;
+				width: 200px;
+				background-color: #fafafa;
+
+				margin-left: 8px;
+				margin-bottom: 8px;
+			}
+
+			.wrapper {
+				display: flex;
+				align-items: center;
+			}
+
+			.avatar {
+				display: inline-block;
+				width: 40px;
+				height: 40px;
+				border-radius: 50%;
+				overflow: hidden;
+				background: #ccc;
+			}
+
+			.item_name {
+				padding-left: 16px;
+			}
+
+			.black {
+				background-color: black;
+			}
+
+			.blue {
+				background-color: var(--paper-light-blue-300);
+			}
+
+			.red {
+				background-color: var(--paper-red-300);
+			}
+
+			.yellow {
+				background-color: var(--paper-amber-300);
+			}
+
+			.green {
+				background-color: var(--paper-green-300);
+			}
+
+			#loading {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+
+		<div id="loading" hidden$="{{!isLoading}}">
+			<paper-spinner alt="Loading resource list" active></paper-spinner>
+		</div>
+		<div id="content" hidden$="{{isLoading}}">
+			<template is="dom-repeat" items="[[filteredSites]]" as="site">
+				<template is="dom-repeat" items="[[site.locations]]" as="location">
+					<div class="resources">
+						<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}"
+						             total="[[totalResources(location.name)]]"></list-header>
+						<template is="dom-repeat" items="[[location.resources]]" as="resource">
+							<paper-card>
+								<div class="card-content wrapper" on-tap="_listTap">
+									<div class$="{{iconColour(resource.state)}}" item-icon></div>
+									<div class="item_name">[[resource.name]]</div>
+								</div>
+							</paper-card>
+						</template>
+					</div>
+				</template>
+			</template>
+		</div>
+	</template>
+
+	<script>
+		(function() {
+			'use strict';
+
+			Polymer({
+				is: 'site-summary',
+
+				properties: {
+					sites: {
+						type: Object,
+						value: [],
+						observer: '_sitesChanged'
+					},
+
+					filteredSites: {
+						type: Object,
+						value: []
+					},
+
+					isLoading: {
+						type: Boolean,
+						value: true 
+					},
+	
+					resource: {
+						type: String,
+						notify: true
+					}
+				},
+
+				_sitesChanged: function(sites) {
+					var filtered = JSON.parse(JSON.stringify(sites));
+
+					for (var s = 0; s < sites.length; s++) {
+						var site = filtered[s];
+
+						for (var l = 0; l < site.locations.length; l++) {
+							var loc = site.locations[l];
+
+							for (var r = loc.resources.length - 1; r >= 0; r--) {
+								var resource = loc.resources[r];
+
+								if (resource && resource.state !== 'AVAILABLE') {
+									loc.resources.splice(r, 1);
+								}	
+							}
+						}
+					}
+
+					this.filteredSites = filtered;
+				},
+
+				_listTap: function(e) {
+					this.fire('resourceTap');
+					this.resource = '';
+					this.resource = e.target.textContent;
+				},
+
+				_handleDragStart: function(e) {
+					var name = e.target.innerText;
+					e.dataTransfer.setData('text/html', name);
+				},
+
+				freeResources: function(resources) {
+					var free = 0;
+
+					for (var i in resources) {
+						var resource = resources[i];
+
+						if (resource.state === 'AVAILABLE') {
+							free += 1;
+						}
+					}
+
+					return free;
+				},
+
+				totalResources: function(locName) {
+					if (this.sites && this.sites.length > 0) {
+						for (var i = 0; i < this.sites[0].locations.length; i++) {
+							var loc = this.sites[0].locations[i];
+
+							if (loc.name === locName) {
+								return loc.resources.length;
+							}
+						}
+					}
+
+					return -1;
+				},
+
+				iconColour: function(state) {
+					if (state === 'AVAILABLE') {
+						return 'avatar green';
+					} else if (state === 'NOT_AVAILABLE') {
+						return 'avatar black';
+					} else if (state === 'RESERVED') {
+						return 'avatar yellow';
+					} else if (state === 'IN_USE') {
+						return 'avatar red';
+					}
+
+					return 'avatar blue';
+				}
+			});
+		})();
+	</script>
+</dom-module>

@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../routing.html">
 
 <link rel="import" href="../all-summary/all-summary.html">
+<link rel="import" href="../site-explore/site-explore.html">
 <link rel="import" href="../bookit-data/bookit-data.html">
 <link rel="import" href="../bookit-list/bookit-list.html">
 <link rel="import" href="../bookit-map/bookit-map.html">
@@ -46,38 +47,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
 				<paper-toolbar id="pageToolbar" class="mainToolbar">
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
-					<paper-icon-button id="back_arrow" icon="arrow-back"
-					                   on-tap="_handleBackPress" hidden="{{hideBackArrow()}}"></paper-icon-button>
 
 					<span class="title">MapIT</span>
 						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
 						<paper-icon-button icon="search"></paper-icon-button>
           			</paper-toolbar>
+
 			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
-				<section data-section="summary">
-					<all-summary id="allLibSum" sites="[[sites]]" is-loading="[[isLoading]]"></all-summary>
-				</section>
-
-				<section data-section="library">
-					<paper-drawer-panel id="mainDrawerPanel" class="main-drawer-panel" responsive-width="600px"
-					                    drawer-width="[[_computeListWidth(_isMobile)]]" drawer-toggle-attribute="list-toggle"
-					                    narrow="{{_isMobile}}" default-selected="drawer" disable-swipe
-					                    on-iron-select="_onMainDrawerSelect">
-        					<paper-header-panel class="list-panel" drawer>
-							<div class="fit">
-								<bookit-list sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></bookit-list>
-							</div>
-
-						</paper-header-panel>
-
-						<paper-header-panel class="content-panel" main>
-							<div class="fit">
-								<bookit-map site="{{site}}" focus-resource="[[resource]]" resources="[[sites]]"></bookit-map>
-							</div>
-
-						</paper-header-panel>
-					</paper-drawer-panel>
-				</section>
+				<all-summary  data-section="summary" sites="[[sites]]" id="allLibSum" is-loading="[[isLoading]]"></all-summary>
+				<site-explore data-section="library" site="[[site]]" sites="[[sites]]" is-loading="[[isLoading]]"></site-explorer>
 			</iron-pages>
 			</div>
 			</div>
@@ -107,21 +85,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				attached: function() {
-					document.querySelector('bookit-list').addEventListener('closeDrawer', function () {
-						document.getElementById('mainDrawerPanel').closeDrawer();
-					});
-
-					document.querySelector('site-list').addEventListener('tap-item', function() {
-						document.getElementById('navDrawerPanel').closeDrawer();
-					});
-
 					this.resize();
 				},
 
 				resize: function() {
 					var toolbarHeight = this.$.pageToolbar.clientHeight;
 					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
-					document.getElementById('mainDrawerPanel').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
 
 				_onDrawerAnimationFinish: function() {
@@ -133,10 +102,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 					// The variable _site is set if there's a site change queued up
 					// waiting for the drawer animation to finish, and now it has!
-					if (this._site !== '') {
+					if (this._site && this._site !== '') {
 						// set the actual site value and then reset the temporary one
 						// so that we don't repetitively set the site and thus spam
 						// network requests.
+						console.log('he.');
 						var bookit = document.querySelector('#bookit_data');
 						bookit.site = this._site;
 						this._site = '';
@@ -148,17 +118,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					return isMobile ? '100%' : '360px';
 				},
 
-				_handleBackPress: function() {
-					console.log('o.o');
-					document.getElementById('mainDrawerPanel').openDrawer();
-				},
-
 				_onMainDrawerSelect: function(e, detail) {
-					var drawerNarrow = document.getElementById('mainDrawerPanel').narrow;
 					var librarySelected = document.getElementById('iPages').selected === 'library';
 
 					if (detail.item.id === 'main' || detail.item.id === 'drawer') {
-						var hidden = !(detail.item.id === 'main' && drawerNarrow && librarySelected);
+						var hidden = !(detail.item.id === 'main' && librarySelected);
 						document.getElementById('back_arrow').hidden = hidden;
 
 						if (hidden) {
@@ -172,16 +136,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				_tapRefresh: function() {
 					console.log('tap tap');
 					this.refresh = true;
-				},
-
-				hideBackArrow: function() {
-					if (document.getElementById('mainDrawerPanel').narrow &&
-					    document.getElementById('iPages').selected === 'library') {
-						document.getElementById('menu_btn').style.display = 'none';
-						return false;
-					}
-					document.getElementById('menu_btn').style.display = 'block';
-					return true;
 				}
 			});
 		})();
