@@ -171,6 +171,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_mapDataChanged: function() {
 					this._initMap();
+					this.map.setMapData(this.mapData);
+					this.map.resourceUpdate(this.resources);
+					this.map.setLevel(Object.keys(this.mapData.levels)[0]);
 				},
 
 				_levelChanged: function(level) {
@@ -188,9 +191,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 					/*global ResourceMap */
 					this.map = new ResourceMap(this.site);
-					this.map.setMapData(this.mapData);
-					this.map.resourceUpdate(this.resources);
-					this.map.setLevel(Object.keys(this.mapData.levels)[0]);
 				},
 
 				_siteChanged: function(newSite) {
