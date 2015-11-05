@@ -48,6 +48,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				height: 100%;
 				width: 100%;
 			}
+
+			map-levelselector {
+				position: absolute;
+				margin: 16px 16px;
+			}
 		</style>
 
 		<div id="container">
@@ -56,11 +61,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<span>Select a resource to begin</span>
 				</div>
 			</div>
+			<map-levelselector></map-levelselector>
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
 			     on-mousewheel="_handleMouseWheel" hidden="[[hideMap]]"
 			     on-touchstart="_handleTouchStart" on-touchmove="_handleTouchMove"
-			     on-touchend="_handleTouchEnd"></div>
+			     on-touchend="_handleTouchEnd">
+			</div>
 		</div>
 	</template>
 	
