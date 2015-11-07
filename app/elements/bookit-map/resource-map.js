@@ -398,6 +398,10 @@ var ResourceMap = function(loc) {
 	 * @param {String} filename
 	 */
 	this._setBackground = function(filename) {
+		// Notify our parent that we're trying to load a new map
+		var event = new CustomEvent('map-loading', {});
+		that._map.dispatchEvent(event);
+
 		// Url from which to load the background
 		var path = MAP_BACKGROUND_BASE_URL + filename;
 		// Our background is just an image! Attempt to load it.

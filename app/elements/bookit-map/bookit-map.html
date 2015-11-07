@@ -54,15 +54,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				right: 0;
 				margin: 16px 16px;
 			}
+
+			paper-spinner {
+				width: 60px;
+				height: 60px;
+			}
 		</style>
 
 		<div id="container">
 			<map-levelselector map-data="[[mapData]]" level="{{level}}"></map-levelselector>
 
+			<div id="loading" hidden="[[!isLoading]]">
+				<paper-spinner alt="Loading resource list" active></paper-spinner>
+			</div>
+
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
 			     on-mousewheel="_handleMouseWheel" on-touchstart="_handleTouchStart"
-			     on-touchmove="_handleTouchMove" on-touchend="_handleTouchEnd">
+			     on-touchmove="_handleTouchMove" on-touchend="_handleTouchEnd"
+			     hidden="[[isLoading]]">
 			</div>
 		</div>
 	</template>
@@ -104,6 +114,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					scaling: {
 						type: Number,
 						value: null
+					},
+					isLoading: {
+						type: Boolean,
+						value: true
 					}
 				},
 
@@ -115,8 +129,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				attached: function() {
-					document.querySelector('#map').addEventListener('map-loaded', function(e) {
-						console.log(e);
+					// the meaning of this changes inside event listeners.
+					var that = this;
+					document.querySelector('#map').addEventListener('map-loading', function() {
+						that.isLoading = true;
+					}, false);
+
+					document.querySelector('#map').addEventListener('map-loaded', function() {
+						that.isLoading = false;
+
+						// Hiding and unhiding the div changes the size. Make sure
+						// the map canvas is resized to accomodate
+						if(that.map) {
+							that.map.resizeCanvas();
+						}
 					}, false);
 				},
 
