@@ -114,6 +114,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					'iron-resize': 'resize'
 				},
 
+				attached: function() {
+					document.querySelector('#map').addEventListener('map-loaded', function(e) {
+						console.log(e);
+					}, false);
+				},
+
 				_handleDragover: function(e) {
 					e.preventDefault();
 				},
