@@ -77,11 +77,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					var levels = [];
 					// Number of floors will be the length of the keys array
 					var length = Object.keys(this.mapData.levels).length;
-
 					for (var i = 0; i < length; i++) {
 						levels.push(mapData.levels[i].name);
 					}
+					// Reset selected item to be first item
 					this._levels = levels;
+					this.selected = 0;
 				}
 			});
 		})();
