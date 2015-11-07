@@ -39,6 +39,7 @@ for site in obj:
 		"resources": {}
 	}
 
+	level_count = 0
 
 	site_id = site["id"]
 	site_name = site["name"]
@@ -61,16 +62,16 @@ for site in obj:
 
 			level = guess_level(res_name, site_name)
 
-			if not level in site_data["levels"].keys():
-				site_data["levels"][level] = {}
+			if not level_count in site_data["levels"].keys():
+				site_data["levels"][level_count] = {}
 
-			site_data["levels"][level]["filename"] = generate_filename(site_name, level)
-			site_data["levels"][level]["order"] = ""
+			site_data["levels"][level_count]["name"] = level
+			site_data["levels"][level_count]["filename"] = generate_filename(site_name, level)
 
 			site_data["resources"][res_name] = {
 				"x":     0,
 				"y":     0,
-				"level": level
+				"level": level_count
 			}
 
 	filename = site_name.lower() + '.json'
