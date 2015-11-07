@@ -37,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<paper-card>
 			<div class="card-content">
 				<paper-dropdown-menu label="Level">
-					<paper-menu class="dropdown-content" selected="{{_selected}}">
+					<paper-menu class="dropdown-content" selected="{{selected}}">
 						<template is="dom-repeat" items="[[_levels]]" as="level">
 							<paper-item>Level [[level]]</paper-item>
 						</template>
@@ -59,16 +59,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: Object,
 						observer: '_mapDataChanged'
 					},
-					level: {
-						type: String,
+					selected: {
+						type: Number,
+						value: 0,
 						notify: true
 					},
 
-					_selected: {
-						type: Number,
-						value: 0,
-						observer: '_selectedChanged'
-					},
 					_levels: {
 						type: Object,
 						value: []
@@ -76,14 +72,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_mapDataChanged: function(mapData) {
-					console.log(mapData);
-					this._levels = Object.keys(mapData.levels);
-				},
+					// If the data has changed then the site probably has too.
+					// Reset the list!
+					var levels = [];
+					// Number of floors will be the length of the keys array
+					var length = Object.keys(this.mapData.levels).length;
 
-				_selectedChanged: function(selected) {
-					if (this.mapData) {
-						this.level = Object.keys(this.mapData.levels)[selected];
+					for (var i = 0; i < length; i++) {
+						levels.push(mapData.levels[i].name);
 					}
+					this._levels = levels;
 				}
 			});
 		})();

@@ -273,12 +273,12 @@ var ResourceMap = function(loc) {
 	 * Set that level here.
 	 * @param {String} name
 	 */
-	this.setLevel = function(name) {
+	this.setLevel = function(index) {
 		// Retrieve the level data associated with the given name.
-		var level = this._mapInfo.levels[name];
+		var level = this._mapInfo.levels[index];
 
-		// Store a reference to the name of the level we're on
-		this._level = name;
+		// Store a reference to the index of the level we're on
+		this._level = String(index);
 
 		// All resources must go and the background has
 		// changed. Remove it all!
