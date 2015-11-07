@@ -32,7 +32,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<link rel="import" type="css" href="mapit-app.css">
 
 	<template>
-		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}" refresh="{{refresh}}"></bookit-data>
+		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}"
+		             refresh="{{refresh}}" response-at="{{responseAt}}"></bookit-data>
 
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px" on-transitionend="_onDrawerAnimationFinish">
 			<div class="nav" drawer>
@@ -49,6 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
 					<span class="title">MapIT</span>
+						<span>Last refreshed at [[responseAt]]</span>
 						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
 						<paper-icon-button icon="search"></paper-icon-button>
           			</paper-toolbar>
@@ -86,6 +88,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				attached: function() {
 					this.resize();
+
+					var that = this;
+					setInterval(function() {
+						that.refresh = true;
+					}, 60000);
 				},
 
 				resize: function() {
@@ -134,7 +141,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_tapRefresh: function() {
-					console.log('tap tap');
 					this.refresh = true;
 				}
 			});

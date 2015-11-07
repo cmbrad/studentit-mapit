@@ -18,7 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			params='{{params}}'
 			handle-as="json"
 			last-response="{{sites}}"
-			last-error="{{bookitError}}">
+			last-error="{{bookitError}}"
+			on-response='_onResponse'>
 		</iron-ajax>
 	</template>
 
@@ -62,7 +63,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					value: false,
 					notify: true,
 					observer: '_refreshChanged'
+				},
 
+				responseAt: {
+					type: String,
+					value: 'Never',
+					notify: true
 				}
 			},
 
@@ -96,6 +102,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				if (this.sites && this.sites.length > 0 && this.sites[0].name === '_default') {
 					this.sites.splice(0,1);
 				}
+			},
+
+			_onResponse: function() {
+				var now  = new Date();
+				this.responseAt = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
 			},
 
 			getSiteID: function(site) {
