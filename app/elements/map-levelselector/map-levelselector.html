@@ -18,10 +18,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<style>
 			:host {
 				display: block;
+				width: 100%;
+				box-sizing: border-box;
 			}
 
-			paper-card {
-				width: 360px;
+			.level-card {
+				width: 400px;
 			}
 
 			paper-dropdown-menu {
@@ -34,7 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</style>
 
-		<paper-card>
+		<paper-card id="levelCard">
 			<div class="card-content">
 				<paper-dropdown-menu label="Level">
 					<paper-menu class="dropdown-content" selected="{{selected}}">
@@ -45,6 +47,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</paper-dropdown-menu>
 			</div>
 		</paper-card>
+
+		<iron-media-query query="(max-width: 432px)" query-matches="{{_isNarrow}}"></iron-media-query>
 	</template>
 
 	<script>
@@ -65,6 +69,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						notify: true
 					},
 
+					_isNarrow: {
+						type: Boolean,
+						observer: '_isNarrowChanged'
+					},
 					_levels: {
 						type: Object,
 						value: []
@@ -83,6 +91,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					// Reset selected item to be first item
 					this._levels = levels;
 					this.selected = 0;
+				},
+
+				_isNarrowChanged: function(isNarrow) {
+					this.$.levelCard.style.width = isNarrow ? '100%' : '400px';
 				}
 			});
 		})();
