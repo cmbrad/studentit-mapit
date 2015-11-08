@@ -32,10 +32,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // change elsewhere after teh animation has finished.
         if (mapit.drawerOpen) {
             mapit._site = site;
+            mapit._selected = selected;
         } else {
             bookit.site = site;
+            iPages.selected = selected;
         }
-        iPages.selected = selected;
     }
 
     page('/', scrollToTop, function () {

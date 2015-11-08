@@ -77,6 +77,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					drawerOpen: {
 						type: Boolean,
 						value: false
+					},
+
+					_site: {
+						type: String,
+						value: null
+					},
+					_selected: {
+						type: String,
+						value: null
 					}
 				},
 				behaviors: [
@@ -109,14 +118,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 					// The variable _site is set if there's a site change queued up
 					// waiting for the drawer animation to finish, and now it has!
-					if (this._site && this._site !== '') {
+					if (this._site !== null) {
 						// set the actual site value and then reset the temporary one
 						// so that we don't repetitively set the site and thus spam
 						// network requests.
-						console.log('he.');
 						var bookit = document.querySelector('#bookit_data');
 						bookit.site = this._site;
-						this._site = '';
+						var iPages = document.querySelector('#iPages');
+						iPages.selected = this._selected;
+						this._selected = null;
+						this._site = null;
 					}
 				},
 
