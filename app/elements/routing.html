@@ -76,8 +76,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
 
     page('*', function() {
-      app.$.toast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
-      app.$.toast.show();
+      app.$.routeToast.text = 'Can\'t find: ' + window.location.href  + '. Redirected you to Home Page';
+      app.$.routeToast.show();
       page.redirect('/');
     });
 

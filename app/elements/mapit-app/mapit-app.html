@@ -50,9 +50,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
 					<span class="title">MapIT</span>
-						<span>Last refreshed at [[responseAt]]</span>
-						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
-						<paper-icon-button icon="search"></paper-icon-button>
+					<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
+					<paper-icon-button icon="search"></paper-icon-button>
           			</paper-toolbar>
 
 			<iron-pages id="iPages" attr-for-selected="data-section" selected="0">
@@ -62,6 +61,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</div>
 			</div>
 		</paper-drawer-panel>
+		
+		<paper-toast id="routeToast"></paper-toast>
+		<paper-toast id="refreshToast" text="Refreshed data.">
 
 		<iron-media-query query="(max-width: 1280px)" query-matches="{{_showMenuBtn}}"></iron-media-query>
 	</template>
@@ -78,6 +80,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: Boolean,
 						value: false
 					},
+					responseAt: {
+						type: String,
+						observer: 'responseAtChanged'
+					},
 
 					_site: {
 						type: String,
@@ -93,6 +99,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				],
 				listeners: {
 					'iron-resize': 'resize'
+				},
+
+				responseAtChanged: function() {
+					this.$.refreshToast.show();
 				},
 
 				attached: function() {
