@@ -113,12 +113,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
 
-				_onDrawerAnimationFinish: function() {
+				_onDrawerAnimationFinish: function(e) {
 					// Set the property which tells us whether the drawer is open or not
 					// since the drawer doesn't give us that information for some reason.
 					// TODO: Modify drawer and upstream changes.
-					var selected = document.querySelector('#navDrawerPanel').selected;
-					this.drawerOpen = (selected === 'drawer');
+					// Must do this check as sometimes a paper ripple transition ends
+					// before the drawer close press is registered which interefers with
+					// with this code and makes the drawer seem closed. This causes animation
+					// lag as the UI tries to change as its' still animating
+					if (e.target.tagName === 'DIV') {
+						var selected = document.querySelector('#navDrawerPanel').selected;
+						this.drawerOpen = (selected === 'drawer');
+					}
 
 					// The variable _site is set if there's a site change queued up
 					// waiting for the drawer animation to finish, and now it has!
@@ -132,6 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						iPages.selected = this._selected;
 						this._selected = null;
 						this._site = null;
+						this.drawerOpen = false;
 					}
 				},
 
