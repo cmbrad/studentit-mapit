@@ -102,6 +102,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					setInterval(function() {
 						that.refresh = true;
 					}, 60000);
+
+					document.querySelector('site-list').addEventListener('tap-item', function() {
+						that.$.navDrawerPanel.closeDrawer();
+					});
 				},
 
 				resize: function() {
