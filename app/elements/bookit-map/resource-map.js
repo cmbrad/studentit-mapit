@@ -451,9 +451,17 @@ var ResourceMap = function(loc) {
 	 * zoom and translation transformations.
 	 */ 
 	this.resizeCanvas = function() {
+		// Sometimes resize is called even when it doesn't need to be. Discard
+		// those events so we don't needlessly throw away our transformations
+		// Since that resets the map for the user and is annoying.
+		if (this._w === this._map.offsetWidth && this._h === this._map.offsetHeight) {
+			return;
+		}
+
 		// Update the stored width and height of the parent
 		this._w = this._c.width = this._map.offsetWidth;
 		this._h = this._c.height = this._map.offsetHeight;
+
 
 		// Resize the canvas to match the parent
 		this._scaleToScreen();
