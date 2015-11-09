@@ -88,6 +88,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				attached: function() {
 					this.resize();
+	
+					// Can't access this inside event listeners...so reference it as that.
+					// There must be a better way to do this.
+					var that = this;
+					document.querySelector('site-summary').addEventListener('resourceTap', function() {
+						// View the map page when a user presses on the resource
+						that.selected = 1;
+					});
 				},
 
 				resize: function() {
