@@ -56,7 +56,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 		<a data-route="[[route]]" href="[[href]]">
 			<paper-item>
-				<iron-icon icon="[[icon]]"></iron-icon>
+				<template is="dom-if" if="[[icon]]">
+					<iron-icon icon="[[icon]]"></iron-icon>
+				</template>
 				<span>[[text]]</span>
 			</paper-item>
 		</a>
