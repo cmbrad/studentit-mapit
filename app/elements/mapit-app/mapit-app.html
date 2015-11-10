@@ -23,6 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../routing.html">
 
 <link rel="import" href="../all-summary/all-summary.html">
+<link rel="import" href="../site-list/site-list.html">
 <link rel="import" href="../site-explore/site-explore.html">
 <link rel="import" href="../bookit-data/bookit-data.html">
 <link rel="import" href="../bookit-list/bookit-list.html">
@@ -46,7 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<paper-toolbar id="pageToolbar" class="mainToolbar">
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
-					<span class="title">MapIT</span>
+					<span class="title">{{title}}</span>
 					<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
 					<paper-icon-button icon="search"></paper-icon-button>
           			</paper-toolbar>
@@ -60,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</paper-drawer-panel>
 		
 		<paper-toast id="routeToast"></paper-toast>
-		<paper-toast id="refreshToast" text="Refreshed data.">
+		<paper-toast id="refreshToast" text="Refreshed data."></paper-toast>
 
 		<iron-media-query query="(max-width: 1280px)" query-matches="{{_showMenuBtn}}"></iron-media-query>
 	</template>
@@ -73,6 +74,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'mapit-app',
 
 				properties: {
+					title: {
+						type: String,
+						value: 'MapIT'
+					},
 					drawerOpen: {
 						type: Boolean,
 						value: false
