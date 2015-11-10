@@ -24,9 +24,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				height: 70px;
 				width: 200px;
 				background-color: #fafafa;
+			}
 
+			.narrow_card {
 				margin-left: 8px;
 				margin-bottom: 8px;
+			}
+
+			.wide_card {
+				margin: 0;
+				width: 100%;
 			}
 
 			.wrapper {
@@ -91,7 +98,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}"
 						             total="[[totalResources(location.name)]]"></list-header>
 						<template is="dom-repeat" items="[[location.resources]]" as="resource">
-							<paper-card>
+							<paper-card class$="[[narrowCss()]]">
 								<div class="card-content wrapper" on-tap="_listTap">
 									<div class$="{{iconColour(resource.state)}}" item-icon></div>
 									<div class="item_name">[[resource.name]]</div>
@@ -102,6 +109,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				</template>
 			</template>
 		</div>
+
+		<iron-media-query query="(max-width: 432px)" query-matches="{{_isNarrow}}"></iron-media-query>
 	</template>
 
 	<script>
@@ -131,7 +140,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					resource: {
 						type: String,
 						notify: true
+					},
+
+					_isNarrow: {
+						type: Boolean,
+						observer: '_isNarrowChanged'
 					}
+				},
+
+				_isNarrowChanged: function(isNarrow) {
+					console.log(isNarrow);
+					var cards = document.getElementsByTagName('paper-card');
+					for (var i = 0; i < cards.length; i++) {
+						if (isNarrow) {
+							cards[i].classList.remove('narrow_card');
+							cards[i].classList.add('wide_card');
+						} else {
+							cards[i].classList.remove('wide_card');
+							cards[i].classList.add('narrow_card');
+						}
+					}
+				},
+
+				narrowCss: function() {
+					return this._isNarrow ? 'wide_card' : 'narrow_card';
 				},
 
 				_sitesChanged: function(sites) {
