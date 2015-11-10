@@ -10,8 +10,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <link rel="import" href="../../bower_components/paper-tabs/paper-tabs.html">
 
@@ -19,16 +19,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<template>
 		<style>
 			:host {
-				display: block;
-				width: 100%;
-				height: 100%;
+				display: flex;
+				flex-direction: column;
 
 				--paper-tab-ink: #3F51B5;
 			}
 
-			iron-pages {
+			neon-animated-pages {
 				width: 100%;
-				height: 100%;
+				/*height: 100%;*/
 				/* Scroll the pages rather than the whole element */
 				/* Without this tabs scroll off the screen */
 				overflow-y: auto;
@@ -47,10 +46,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<paper-tab>Map</paper-tab>
 		</paper-tabs>
 
-		<iron-pages selected="[[selected]]">
-			<site-summary sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></site-summary>
-			<bookit-map site="[[site]]" focus-resource="[[resource]]" resources="[[sites]]" map-data="[[mapData]]"></bookit-map>
-		</iron-pages>
+		<div class="flex" style="display: flex;">
+			<neon-animated-pages class="flex" selected="[[selected]]" entry-animation="[[_entryAnimation]]" exit-animation="[[_exitAnimation]]">
+				<site-summary sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></site-summary>
+				<bookit-map site="[[site]]" focus-resource="[[resource]]" resources="[[sites]]" map-data="[[mapData]]"></bookit-map>
+			</neon-animated-pages>
+		</div>
 	</template>
 
 	<script>
@@ -70,25 +71,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					},
 					selected: {
 						type: Number,
-						value: 0
+						value: 0,
+						observer: '_selectedChanged'
 					},
 					isLoading: {
 						type: Boolean,
 						value: true 
+					},
+
+					_entryAnimation: {
+						type: String,
+						value: ''
+					},
+
+					_exitAnimation: {
+						type: String,
+						value: ''
 					}
 				},
 
-				behaviors: [
-					Polymer.IronResizableBehavior
-				],
-
-				listeners: {
-					'iron-resize': 'resize'
-				},
-
 				attached: function() {
-					this.resize();
-	
 					// Can't access this inside event listeners...so reference it as that.
 					// There must be a better way to do this.
 					var that = this;
@@ -98,13 +100,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					});
 				},
 
-				resize: function() {
-					var ironHeight = document.querySelector('iron-pages').clientHeight;
-					var tabHeight  = document.querySelector('paper-tabs').clientHeight;
-					var newHeight  = (ironHeight - tabHeight) + 'px';
-
-					document.querySelector('site-summary').style.height = newHeight;
-					document.querySelector('bookit-map').style.height = newHeight;
+				_selectedChanged: function(selected) {
+					if (selected === 0) {
+						this._entryAnimation = 'slide-from-right-animation';
+						this._exitAnimation = 'slide-left-animation';
+					} else {
+						this._entryAnimation = 'slide-from-left-animation';
+						this._exitAnimation = 'slide-right-animation';
+					}
 				}
 			});
 		})();
