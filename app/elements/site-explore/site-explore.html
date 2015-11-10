@@ -26,11 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 
 			neon-animated-pages {
-				width: 100%;
-				/*height: 100%;*/
 				/* Scroll the pages rather than the whole element */
 				/* Without this tabs scroll off the screen */
 				overflow-y: auto;
+				/* Hide x overflow otherwise there are scroll bars during page transition */
+				overflow-x: hidden;
 			}
 
 			paper-tabs, paper-toolbar {
