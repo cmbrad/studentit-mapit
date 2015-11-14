@@ -25,6 +25,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       next();
     }
 
+    function getTitle(site) {
+        var sites = {
+            'architecture': 'Architecture',
+            'baillieu': 'Baillieu',
+            'brownless': 'Brownless',
+            'erc': 'ERC',
+            'giblin_eunson': 'Giblin Eunson',
+            'law': 'Law',
+            'lenton_parr': 'Lenton Parr',
+            '': 'MapIT'
+        };
+        return sites[site];
+    }
+
     function setSite(site, selected) {
         // If the drawer is open then don't trigger an actual
         // site change as it makes the drawer animation lag.
@@ -37,6 +51,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             bookit.site = site;
             iPages.selected = selected;
         }
+
+        mapit.title = getTitle(site);
     }
 
     page('/', scrollToTop, function () {
