@@ -16,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
@@ -47,9 +48,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				<paper-toolbar id="pageToolbar" class="mainToolbar">
 					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
-					<span class="title">{{title}}</span>
+					<span class="title flex" hidden="[[_searching]]">{{title}}</span>
+					<paper-input class="flex" no-label-float label="Enter a resource" hidden="[[!_searching]]"></paper-input>
+
 					<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
-					<paper-icon-button icon="search"></paper-icon-button>
+					<paper-icon-button icon="search" on-tap="_tapSearch"></paper-icon-button>
           			</paper-toolbar>
 
 			<iron-pages id="iPages" class="flex" attr-for-selected="data-section" selected="0">
@@ -94,6 +97,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					_selected: {
 						type: String,
 						value: null
+					},
+
+					_searching: {
+						type: Boolean,
+						value: false
 					}
 				},
 				behaviors: [
@@ -176,6 +184,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_tapRefresh: function() {
 					this.refresh = true;
+				},
+
+				_tapSearch: function() {
+					this._searching = !this._searching;
 				}
 			});
 		})();

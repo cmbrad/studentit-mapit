@@ -117,3 +117,8 @@ a iron-icon {
 #drawerToolbar {
 	height: 110px;
 }
+
+paper-input {
+	--paper-input-container-focus-color: white;
+	--paper-input-container-input-color: white;
+}
