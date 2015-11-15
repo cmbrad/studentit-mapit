@@ -34,10 +34,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 	<link rel="import" type="css" href="mapit-app.css">
 
 	<template>
-		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}"
-		             refresh="{{refresh}}" response-at="{{responseAt}}"></bookit-data>
+		<bookit-data data="{{sites}}" is-loading="{{isLoading}}" refresh="{{refresh}}"></bookit-data>
 
-		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px" on-transitionend="_onDrawerAnimationFinish">
+		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
 			<div class="nav" drawer>
 				<paper-toolbar id="drawerToolbar"></paper-toolbar>
 				<site-list></site-list>
@@ -45,21 +44,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 			<div main>
 				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
-				<paper-toolbar id="pageToolbar" class="mainToolbar">
-					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
+					<paper-toolbar id="pageToolbar" class="mainToolbar">
+						<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
-					<span class="title flex" hidden="[[_searching]]">{{title}}</span>
-					<paper-input class="flex" no-label-float label="Enter a resource" hidden="[[!_searching]]"></paper-input>
+						<span class="title flex" hidden="[[_searching]]">{{title}}</span>
+						<paper-input class="flex" no-label-float label="Enter a resource" hidden="[[!_searching]]"></paper-input>
+	
+						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
+						<paper-icon-button icon="search" on-tap="_tapSearch"></paper-icon-button>
+          				</paper-toolbar>
 
-					<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
-					<paper-icon-button icon="search" on-tap="_tapSearch"></paper-icon-button>
-          			</paper-toolbar>
-
-			<iron-pages id="iPages" class="flex" attr-for-selected="data-section" selected="0">
-				<all-summary  class="flex" data-section="summary" sites="[[sites]]" id="allLibSum" is-loading="[[isLoading]]"></all-summary>
-				<site-explore class="flex" data-section="library" site="[[site]]" sites="[[sites]]" is-loading="[[isLoading]]"></site-explorer>
-			</iron-pages>
-			</div>
+					<iron-pages id="iPages" class="flex" attr-for-selected="data-section" selected="0">
+						<all-summary  class="flex" data-section="summary" sites="[[sites]]" id="allLibSum" is-loading="[[isLoading]]"></all-summary>
+						<site-explore class="flex" data-section="library" site="[[site]]" sites="[[sites]]" is-loading="[[isLoading]]"></site-explorer>
+					</iron-pages>
+				</div>
 			</div>
 		</paper-drawer-panel>
 		
@@ -81,20 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						type: String,
 						value: 'MapIT'
 					},
-					drawerOpen: {
-						type: Boolean,
-						value: false
-					},
-					responseAt: {
-						type: String,
-						observer: 'responseAtChanged'
-					},
-
-					_site: {
-						type: String,
-						value: null
-					},
-					_selected: {
+					site: {
 						type: String,
 						value: null
 					},
@@ -107,17 +93,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				behaviors: [
 					Polymer.IronResizableBehavior
 				],
-				listeners: {
-					'iron-resize': 'resize'
-				},
-
-				responseAtChanged: function() {
-					this.$.refreshToast.show();
-				},
 
 				attached: function() {
-					this.resize();
-
 					var that = this;
 					setInterval(function() {
 						that.refresh = true;
@@ -126,45 +103,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					document.querySelector('site-list').addEventListener('tap-item', function() {
 						that.$.navDrawerPanel.closeDrawer();
 					});
-				},
-
-				resize: function() {
-					var toolbarHeight = this.$.pageToolbar.clientHeight;
-					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
-				},
-
-				_onDrawerAnimationFinish: function(e) {
-					// Set the property which tells us whether the drawer is open or not
-					// since the drawer doesn't give us that information for some reason.
-					// TODO: Modify drawer and upstream changes.
-					// Must do this check as sometimes a paper ripple transition ends
-					// before the drawer close press is registered which interefers with
-					// with this code and makes the drawer seem closed. This causes animation
-					// lag as the UI tries to change as its' still animating
-					if (e.target.tagName === 'DIV') {
-						var selected = document.querySelector('#navDrawerPanel').selected;
-						this.drawerOpen = (selected === 'drawer');
-					}
-
-					// The variable _site is set if there's a site change queued up
-					// waiting for the drawer animation to finish, and now it has!
-					if (this._site !== null) {
-						// set the actual site value and then reset the temporary one
-						// so that we don't repetitively set the site and thus spam
-						// network requests.
-						var bookit = document.querySelector('#bookit_data');
-						bookit.site = this._site;
-						var iPages = document.querySelector('#iPages');
-						iPages.selected = this._selected;
-						this._selected = null;
-						this._site = null;
-						this.drawerOpen = false;
-					}
-				},
-
-				_computeListWidth: function(isMobile) {
-					// when in mobile screen size, make the list be 100% width to cover the whole screen
-					return isMobile ? '100%' : '360px';
 				},
 
 				_onMainDrawerSelect: function(e, detail) {

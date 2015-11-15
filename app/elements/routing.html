@@ -12,7 +12,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <script>
   window.addEventListener('WebComponentsReady', function() {
     var mapit = document.querySelector('mapit-app');
-    var bookit = document.querySelector('#bookit_data');
     var iPages = document.querySelector('#iPages');
 
     // We use Page.js for routing. This is a Micro
@@ -44,14 +43,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         // site change as it makes the drawer animation lag.
         // Instead set a temporary variable and then do the actual
         // change elsewhere after teh animation has finished.
-        if (mapit.drawerOpen) {
-            mapit._site = site;
-            mapit._selected = selected;
-        } else {
-            bookit.site = site;
-            iPages.selected = selected;
-        }
-
+        mapit.site = site;
+        iPages.selected = selected;
         mapit.title = getTitle(site);
     }
 

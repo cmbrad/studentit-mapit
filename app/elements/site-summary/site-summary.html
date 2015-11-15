@@ -92,7 +92,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<paper-spinner alt="Loading resource list" active></paper-spinner>
 		</div>
 		<div id="content" hidden$="{{isLoading}}">
-			<template is="dom-repeat" items="[[filteredSites]]" as="site">
+			<template is="dom-repeat" items="[[sites]]" as="site">
 				<template is="dom-repeat" items="[[site.locations]]" as="location">
 					<div class="resources">
 						<list-header name="[[location.name]]" free="{{freeResources(location.resources)}}"

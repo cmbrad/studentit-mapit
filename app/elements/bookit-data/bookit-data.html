@@ -15,11 +15,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<iron-ajax
 			id="bookitAjax"
 			url="http://mapit-proxy.cy.id.au/api.py"
-			params='{{params}}'
+			params='{{_params}}'
 			handle-as="json"
-			last-response="{{sites}}"
-			last-error="{{bookitError}}"
-			on-response='_onResponse'>
+			last-response="{{data}}">
 		</iron-ajax>
 	</template>
 
@@ -28,36 +26,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			is: 'bookit-data',
 
 			properties: {
-				sites: {
+				/* List of bookit sites/locations/resources returned
+				 * by the API call. */
+				data: {
 					type: Object,
 					notify: true,
 					value: [],
-					observer: '_sitesChanged'
+					observer: '_dataChanged'
 				},
 
-				site: {
-					type: String,
-					notify: true,
-					value: '',
-					observer: '_siteChanged'
-				},
-
+				/* Is the API request currently in flight */
 				isLoading: {
 					type: Boolean,
 					value: true,
 					notify: true
 				},
 
-				siteID: {
-					type: String,
-					computed: 'getSiteID(site)'
-				},
-
-				params: {
-					type: Object,
-					value: {name: ''}
-				},
-
+				/* Doesn't seem to be a way to do a function all for this, so use a boolean! Set refresh to true
+				 * to trigger a data refresh. After the refresh has been triggered it reverts to false. */
 				refresh: {
 					type: Boolean,
 					value: false,
@@ -65,63 +51,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					observer: '_refreshChanged'
 				},
 
-				responseAt: {
-					type: String,
-					value: 'Never',
-					notify: true
+				/* Can't pass the URL directly to iron ajax due to CORS issues. The workaround is proxying the API
+				 * and enabling CORS that way, and that's set up to get the data by passing in the URL */
+				_params: {
+					type: Object,
+					value: {'url': 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI'}
 				}
+			},
+
+			attached: function() {
+				this._doRequest();
 			},
 
 			_refreshChanged: function(refresh) {
 				if (refresh) {
-					console.log('Refreshing site ' + this.site);
-					this.$.bookitAjax.generateRequest();
+					this._doRequest();
 					this.refresh = false;
 				}
 			},
 
-			_siteChanged: function(site) {
-				console.log('Setting site to ' + site);
-				this.sites = [];
-				this.params = {
-					'url': 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + this.getSiteID(this.site),
-				};
+			_dataChanged: function() {
+				this.isLoading = false;
 
-				this.$.bookitAjax.generateRequest();
-			},
+				console.log('data changed');
 
-			_sitesChanged: function(newSites) {
-				if (newSites === null || newSites.length === 0) {
-					this.isLoading = true;
-				} else {
-					this.isLoading = false;
-				}
+				console.log(this.data);
 
 				// Delete the first element of the array which is the _default site.
 				// We do not care about it.
-				if (this.sites && this.sites.length > 0 && this.sites[0].name === '_default') {
-					this.sites.splice(0,1);
+				if (this.data && this.data.length > 0 && this.data[0].name === '_default') {
+					this.data.splice(0,1);
 				}
 			},
 
-			_onResponse: function() {
-				var now  = new Date();
-				this.responseAt = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-			},
-
-			getSiteID: function(site) {
-				var ids = {
-					'architecture':  8,
-					'baillieu':      2,
-					'brownless':    11,
-					'erc':           7,
-					'giblin_eunson': 3,
-					'law':          12,
-					'lenton_parr':   9,
-					'':             ''
-				};
-
-				return ids[site];
+			/********************
+			 * Custom Functions *
+			 ********************/
+			_doRequest: function() {
+				// Check for requests in progress, don't want to spam the server
+				// with multiple requests
+				if (!this.isLoading) {
+					this.$.bookitAjax.generateRequest();
+					this.isLoading = true;
+				} else {
+					console.log('Already waiting for a data request. Ignoring refresh request');
+				}
 			}
 		});
 	</script>
