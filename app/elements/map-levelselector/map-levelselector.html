@@ -44,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		<paper-card id="levelCard">
 			<div class="card-content">
 				<paper-dropdown-menu label="Level">
-					<paper-listbox class="dropdown-content" selected="{{selected}}">
+					<paper-listbox id="lbox" class="dropdown-content" selected="{{selected}}">
 						<template is="dom-repeat" items="[[_levels]]" as="level">
 							<paper-item>Level [[level]]</paper-item>
 						</template>
@@ -95,7 +95,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 					// Reset selected item to be first item
 					this._levels = levels;
-					this.selected = 0;
+
+					// Dirty race condition hack. without waiting the
+					// listbox will update with the value from the old location =.=
+					var that = this;
+					setTimeout(function() {
+						// Set to -1 first to force a change
+						that.selected = -1;
+						that.selected = 0;
+					}, 100);
 				},
 
 				_isNarrowChanged: function(isNarrow) {
