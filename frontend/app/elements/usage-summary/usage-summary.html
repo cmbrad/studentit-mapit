@@ -12,7 +12,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <dom-module id="usage-summary">
 	<template>
-		<link rel="import" type="css" href="usage-summary.css">
+		<style>
+			:host {
+				display: block;
+			}
+
+			#item {
+				/* Use box-sizing model, otherwise the
+				   usage bar extends past the edge of the
+				   container because of padding */
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+
+				width: 100%;
+				height: 48px;
+
+				display: flex;
+				/* Align usage bar center vertically so it's in line
+				   with text */
+				align-items: center;
+				/* Align horizontally to the left, can't center it all,
+				   that'd just be ugly */
+				justify-content: flex-start;
+				/* Layout text and bar left to right */
+				flex-direction: column;
+
+				color: #3f51b5;
+				font-family: 'Roboto', sans-serif;
+
+				padding-left:  16px;
+				padding-right: 16px;
+			}
+
+			#container {
+				padding-left:  16px;
+				padding-right: 16px;
+				width: 100%;
+				display: flex;
+				/* We want one thing left aligned and one right aligned.
+				   luckily we only have 2 things so just justify them! */
+				justify-content: space-between;
+			}
+
+			#info {
+				display: flex;
+				/* Left align... */
+				justify-content: flex-start;
+			}
+
+			.bar {
+				height: 12px;
+				width: 100%;
+				background-color: #CDDC39;
+			}
+
+			.bar_background {
+				height: 12px;
+				width: 100%;
+				background-color: #E0E0E0;
+			}
+		</style>
 
 		<div id="item">
 			<div id="container">
@@ -38,24 +97,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'usage-summary',
 
 				properties: {
+					/* Location name, in 3 hour ground */
 					name: {
 						type: String
 					},
+					/* How many resources are free */
 					free: {
 						type: Number
 					},
+					/* How many resources exist */
 					total: {
 						type: Number
-					},
-					min: {
-						type: Number,
-						value: 0
 					}
 				},
 
+				/* Calculate the length of the coloured section of the bar
+				   (representing free computers)  */
 				barWidth: function(free,total) {
 					return 'width: ' + (free*100/total) + '%';
 				},
+				/* Calculate the width of the grey portion of the bar (representing
+				   used/unavailable computers) */
 				bgWidth: function(free,total) {
 					return 'width: ' + (100-(free*100/total)) + '%';
 				}

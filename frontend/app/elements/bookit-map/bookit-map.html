@@ -25,31 +25,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			#container {
 				display: flex;
 				height: 100%;
+				width: 100%
+
+				/* Center things like the loading spiner both vertically
+				   and horizontally */
 				align-items: center;
 				justify-content: center;
 
+				/* Nice grey background */
 				background-color: #E0E0E0;
-				font-size: 24px;
 			}
 
-			#map, #info {
+			#map {
+				/* Map should take up the whole space
+				   with no scrollbars */
 				width: 100%;
 				height: 100%;
 				overflow: hidden;
 			}
 
-			#info {
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			#bookit_embed {
-				height: 100%;
-				width: 100%;
-			}
-
 			map-levelselector {
+				/* Put the level selector in the top left,
+				   offset from the edge and top of the page */
 				position: absolute;
 				left: 0;
 				top: 0;
@@ -63,14 +60,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		</style>
 
 		<div id="container">
+			<!-- Can change levels by selecting a resource, or by explicitly selecting a level -->
 			<map-levelselector map-data="[[mapData]]" selected="{{level}}"></map-levelselector>
 
+			<!-- Don't display the map while it's loading, otherwise there'll be UFOC -->
 			<div id="loading" hidden="[[!isLoading]]">
 				<paper-spinner alt="Loading resource list" active></paper-spinner>
 			</div>
 
+			<!-- Draw the map here. Setup handlers! -->
 			<div id="map" on-track="_handleMapTrack" on-scroll="_handleMapScroll"
-
 			     on-dragover="_handleDragover" on-drop="_handleDrop"
 			     on-mousewheel="_handleMouseWheel" on-touchstart="_handleTouchStart"
 			     on-touchmove="_handleTouchMove" on-touchend="_handleTouchEnd"
@@ -87,40 +86,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'bookit-map',
 
 				properties: {
+					/* Name of the site to display the map of */
 					site: {
 						type: String,
 						observer: '_siteChanged'
 					},
+					/* Resource to focus on. If the level displayed is
+					   different than the level of the resource, change
+					   displayed level */
 					focusResource: {
 						type: String,
 						observer: '_focusResourceChanged'
 					},
+					/* Resources to display on the map. Contains data
+					   about availability */
 					resources: {
 						type: Object,
 						observer: '_resourcesChanged'
 					},
+					/* Data such as resource level and location */
 					mapData: {
 						type: Object,
 						observer: '_mapDataChanged'
 					},
+					/* Level of the map which is currently displayed */
 					level: {
 						type: Number,
 						observer: '_levelChanged'
+					},					
+					/* Is data still loading? Wait to display map until we have
+					   data to avoid FOUC */
+					isLoading: {
+						type: Boolean,
+						value: true
 					},
-					
+
 					map: {
 						type: Object,
 						notify: true,
 						value: null
 					},
+					/* null if not currently pinching to zoom */
 					scaling: {
 						type: Number,
 						value: null
 					},
-					isLoading: {
-						type: Boolean,
-						value: true
-					}
 				},
 
 				behaviors: [
@@ -148,34 +158,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}, false);
 				},
 
-				_handleDragover: function(e) {
-					e.preventDefault();
-				},
-
-				_handleDrop: function(e) {
-					var data = e.dataTransfer.getData('text/html');
-					this.map.moveResource(data, e.offsetX, e.offsetY);
-				},
-
+				/* Used to handle pinch zooming. Called at the start of the pinch */
 				_handleTouchStart: function(e) {
+					/* it takes 2 fingers to pinch */
 					if (e.touches.length === 2) {
+						// Use pythagoras to find the distance between the fingers, scale off that!
 						this.scaling =
 							Math.sqrt(
 								(e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientX-e.touches[1].clientX) +
 								(e.touches[0].clientY-e.touches[1].clientY) * (e.touches[0].clientY-e.touches[1].clientY));
 					}
 				},
+				/* Touch in progress. are we still zooming? */
 				_handleTouchMove: function(e) {
+					// Might not have been a 2 finger tap to start off this series of
+					// touch moves, if it wasn't then ignore them, we're not zooming.
 					if (this.scaling !== null) {
 						var x = 0;
 						var y = 0;
 
+						// Find the average location (location between each finger)
 						for (var i = 0; i < e.touches.length; i++) {
 							x += e.touches[i].pageX - e.touches[i].target.offsetLeft;
 							y += e.touches[i].pageY - e.touches[i].target.offsetTop;
 						}
 
-						console.log(e);
+						// Pythagoras!
 						var dist =
 							Math.sqrt(
 								(e.touches[0].clientX-e.touches[1].clientX) * (e.touches[0].clientX-e.touches[1].clientX) +
@@ -184,35 +192,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 						x /= e.touches.length;
 						y /= e.touches.length;
 
+						// Scale from distance between here and where our fingers
+						// were when we last scaled. Otherwise this makes zooms
+						// happen exponentially which is not fun.
 						var factor = dist - this.scaling;
 
-						console.log(factor / 12);
-
+						// Arbritrarily divide by 12 in order to slow scaling speed.
 						this.map.setZoom(x, y, factor / 12);
-
+						// We want to scale from this position next.
 						this.scaling = dist;
 					}
 				},
+
+				/* No more pinching! */
 				_handleTouchEnd: function() {
 					this.scaling = null;
 				},
 
+				/* Handle mouse wheel zooming */
 				_handleMouseWheel: function(e) {
+					// Arbritrarily divide by 40 in order to slow down scaling
 					var delta = e.wheelDelta ? e.wheelDelta/40 : e.detail ? -e.detail : 0;
-					console.log(delta);
 					this.map.setZoom(e.offsetX, e.offsetY, delta);
 				},
 
+				/* Loading data happens asynchronously. When it changes, add it to the map */
 				_mapDataChanged: function() {
+					// Only ever get data once and that's when the map loads, so initialize it.
+					// (We waited to initialize it since there can't be a dataless map)
 					this._initMap();
 					if (this.map) {
 						this.map.setMapData(this.mapData);
 						this.map.resourceUpdate(this.resources);
+						// Always look at the first level. Prob basement or G
 						this.map.setLevel(0);
 					}
 				},
 
 				_levelChanged: function(level) {
+					// Level values may be negative in order to refresh
+					// the level selector UI. Ignore them.
 					if (this.map && level >= 0) {
 						this.map.setLevel(level);
 					}
@@ -232,6 +251,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_siteChanged: function(newSite) {
+					// Changing libraries! No longer say we have a resource
+					// selected and load the new map.
 					if (this.map && newSite && newSite !== '') {
 						this.resource = null;
 						this.map.setLocation(newSite);
@@ -239,16 +260,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_focusResourceChanged: function(resource) {
+					// If we have a map, highlight the selected resource.
 					if (this.map && resource) {
 						this.map.centerOnResource(resource);
 					}
 				},
 
+				/* Resource data will periodically change, or change on demand,
+				   as resource state changes. Update the map with the new info */
 				_resourcesChanged: function(resources) {
 					if(!this.map || resources.length === 0) {
 						return;
 					}
 
+					// The map thinks about resources in one block rather
+					// than as separate locations. Combine them.
 					var rs = [];
 					for (var l in resources[0].locations) {
 						var location = resources[0].locations[l];
@@ -258,6 +284,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					this.map.resourceUpdate(rs);
 				},
 
+				/* Handle clicking and dragging to pan. Works with touch too */
 				_handleMapTrack: function(e) {
 					switch(e.detail.state) {
 						case 'start':
@@ -274,6 +301,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}
 				},
 
+				/* Map needs to change dynamically with screen size */
 				resize: function() {
 					if(this.map) {
 						this.map.resizeCanvas();

@@ -11,12 +11,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <dom-module id="all-summary">
-	<link rel="import" type="css" href="all-summary.css">
-
 	<template>
+		<style>
+			:host {
+				display: flex;
+				/* Center the cards horizontally */
+				justify-content: center;
+
+				/* Want cards to scroll vertically,
+				   not horizontally */
+				overflow-x: hidden;
+				overflow-y: auto;
+				background: #E5E5E5;
+			}
+
+			#cards {
+				/* Default column count is 2, this
+				   changes in javascript below based
+				   on screen size. Widescreen is 3,
+				   medium is 2, and narrow is 1 */
+				column-count: 2;
+				column-gap: 8px;
+
+				/* Cards right to the edge looks bad on wide screens.
+				   This will also change in javascript, on narrow
+				   screens set to 100% so screen realestate is not wasted */
+				width: 90%;
+
+				/* Don't hug the borders! */
+				padding-top: 16px;
+				padding-bottom: 16px;
+			}
+
+			#loading {
+				display: flex;
+				/* Center loading spinner horizontally and vertically */
+				justify-content: center;
+				align-items: center;
+
+				/* Div takes up all the space! Easier to center. */
+				width: 100%;
+				height: 100%;
+			}
+
+			paper-card {
+				margin-bottom: 8px;
+				width: 100%;
+			}
+
+			paper-spinner {
+				width: 60px;
+				height: 60px;
+			}
+		</style>
+
+		<!-- Display a loading spinner -->
 		<div id="loading" hidden$="[[!isLoading]]">
 			<paper-spinner alt="Loading resource list" active></paper-spinner>
 		</div>
+
+		<!-- Display summary cards once data has loaded -->
 		<div id="cards" hidden$="[[isLoading]]">
 			<template is="dom-repeat" items="[[sites]]" as="site">
 				<paper-card heading="[[site.name]]"> 
@@ -30,6 +84,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			</template>
 		</div>
 
+		<!-- Use iron-media-queries to determine how many columns to display in summaries. Larger
+		     displays can allow higher information density. -->
 		<iron-media-query query="(max-width: 1280px)" query-matches="{{_isLarge}}"></iron-media-query>
 		<iron-media-query query="(max-width: 780px)" query-matches="{{_isMobile}}"></iron-media-query>
 	</template>
@@ -41,50 +97,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'all-summary',
 	
 				properties: {
+					/* Data to display in the summary. Comes from bookit-data */
 					sites: {
 						type: Object,
 						value: []
 					},
-
+					/* Has the data finished loading? Also comes from bookit-data */
 					isLoading: {
 						type: Boolean,
 						value: true
 					},
 
+					/* Widescreen? Use to decide column layouts. From iron-media-query */
 					_isLarge: {
 						type: Boolean,
 						observer: '_isLargeChanged'
 					},
 
+					/* Narrow? Use to decide column layouts. From iron-media-query */
 					_isMobile: {
 						type: Boolean,
 						observer: '_isMobileChanged'
 					}
 				},
 
-				_isLargeChanged: function(isLarge) {
-					this.$.cards.style.WebkitColumnCount = isLarge ? 2 : 3;
-					this.$.cards.style.MozColumnCount    = isLarge ? 2 : 3;
-					this.$.cards.style.columnCount       = isLarge ? 2 : 3;
-
-					this.updateStyles();
-				},
-
-				_isMobileChanged: function(isMobile) {
-					this.$.cards.style.width = isMobile ? '100%' : '90%';
-					this.$.cards.style.WebkitColumnCount = isMobile ? 1 : 3;
-					this.$.cards.style.MozColumnCount = isMobile ? 1 : 3;
-					this.$.cards.style.columnCount = isMobile ? 1 : 3;
-
-					this.updateStyles();
-
-					/*this.$.
-					this.mainMode = isMobile ? 'seamed' : 'cover';
-					this.drawerWidth = isMobile ? '100%' : '320px';
-					this.toolbarClass = isMobile ? '' : 'tall';
-					this.updateStyles();*/
-				},
-
+				/* Calculate how many free resources are available in a section of bookit.
+				 * TODO: Move to a server side calculation */
 				freeResources: function(resources) {
 					var free = 0;
 
@@ -98,9 +136,46 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					return free;
 				},
 
+				/* Calculate how many resources are in a section of bookit.
+				 * TODO: Move to a server side calculation */
 				totalResources: function(resources) {
 					return resources.length;
 				},
+
+				_isLargeChanged: function(isLarge) {
+					/* Display different amount of columns depending on screen size.
+					 * Wide:   3
+					 * Medium: 2
+					 * Narrow: 1
+					 */
+					// Interesting standards complience with this feature.
+					// Just catch them all...
+					this.$.cards.style.WebkitColumnCount = isLarge ? 2 : 3;
+					this.$.cards.style.MozColumnCount    = isLarge ? 2 : 3;
+					this.$.cards.style.columnCount       = isLarge ? 2 : 3;
+
+					// Make sure the dom actually updates after changing these
+					this.updateStyles();
+				},
+
+				_isMobileChanged: function(isMobile) {
+					// On narrow screens take up whole width to save
+					// screen realestate.
+					this.$.cards.style.width = isMobile ? '100%' : '90%';
+
+					/* Display different amount of columns depending on screen size.
+					 * Wide:   3
+					 * Medium: 2
+					 * Narrow: 1
+					 */
+					this.$.cards.style.WebkitColumnCount = isMobile ? 1 : 3;
+					this.$.cards.style.MozColumnCount = isMobile ? 1 : 3;
+					this.$.cards.style.columnCount = isMobile ? 1 : 3;
+
+					// Force dom to update
+					this.updateStyles();
+				},
+
 			});
 		})();
 	</script>
