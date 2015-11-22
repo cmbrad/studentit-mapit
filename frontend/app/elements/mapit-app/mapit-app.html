@@ -10,7 +10,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="../../bower_components/iron-resizable-behavior/iron-resizable-behavior.html">
 
 <link rel="import" href="../../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
@@ -30,39 +29,74 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bookit-map/bookit-map.html">
 
 <dom-module id="mapit-app">
-	<link rel="import" type="css" href="mapit-app.css">
-
 	<template>
+		<style>
+			:host {
+				display: block;
+			}
+
+			.nav {
+				border-right: 1px solid #ccc;
+			}
+
+			.mainToolbar {
+				background-color: #003366;
+			}
+
+			#wrapper {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+			}
+
+			#iPages {
+				/* Want to maximize page sizes */
+				display: flex;
+			}
+		</style>
+
+		<!-- Main data source for the whole application. Are resources available? -->
 		<bookit-data id="bookit_data" site="{{site}}" sites="{{sites}}" is-loading="{{isLoading}}"
 		             refresh="{{refresh}}" response-at="{{responseAt}}"></bookit-data>
 
+		<!-- Container for all the things. Listen for the transitionend to help prevent animation jank. -->
 		<paper-drawer-panel id="navDrawerPanel" responsive-width="1280px" on-transitionend="_onDrawerAnimationFinish">
+			<!-- Drawer content. Initially hidden on narrow displays. -->
 			<div class="nav" drawer>
+				<!-- Toolbar at the top of the drawer. Basically just pad the menu to make
+				     it easier to reach on touch devices -->
 				<paper-toolbar id="drawerToolbar"></paper-toolbar>
 				<site-list></site-list>
 			</div>
 
+			<!-- Main area content. -->
 			<div main>
-				<div id="wrapper" style="display: flex; flex-direction: column; height: 100%;">
-				<paper-toolbar id="pageToolbar" class="mainToolbar">
-					<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
+				<!-- Wrap things in flex to ensure correct sizing inside pages -->
+				<div id="wrapper">
+					<paper-toolbar id="pageToolbar" class="mainToolbar">
+						<paper-icon-button id="menu_btn" icon="menu" hidden="[[!_showMenuBtn]]" paper-drawer-toggle></paper-icon-button>
 
-					<span class="title flex" hidden="[[_searching]]">{{title}}</span>
-					<paper-input class="flex" no-label-float label="Enter a resource" hidden="[[!_searching]]"></paper-input>
+						<!-- Page title. Dynamically changes based on selected site -->
+						<span class="title flex" hidden="[[_searching]]">{{title}}</span>
+						<paper-input class="flex" no-label-float label="Enter a resource" hidden="[[!_searching]]"></paper-input>
 
-					<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
-					<paper-icon-button icon="search" on-tap="_tapSearch"></paper-icon-button>
-          			</paper-toolbar>
+						<paper-icon-button icon="refresh" on-tap="_tapRefresh"></paper-icon-button>
+						<!-- Hide/show search box -->
+						<paper-icon-button icon="search" on-tap="_tapSearch"></paper-icon-button>
+          				</paper-toolbar>
 
-			<iron-pages id="iPages" class="flex" attr-for-selected="data-section" selected="0">
-				<all-summary  class="flex" data-section="summary" sites="[[sites]]" id="allLibSum" is-loading="[[isLoading]]"></all-summary>
-				<site-explore class="flex" data-section="library" site="[[site]]" sites="[[sites]]" is-loading="[[isLoading]]"></site-explorer>
-			</iron-pages>
-			</div>
+					<!-- Select first page (summary) by default. Can be overridden inside routing -->
+					<iron-pages id="iPages" class="flex" attr-for-selected="data-section" selected="0">
+						<all-summary  class="flex" data-section="summary" sites="[[sites]]" id="allLibSum" is-loading="[[isLoading]]"></all-summary>
+						<site-explore class="flex" data-section="library" site="[[site]]" sites="[[sites]]" is-loading="[[isLoading]]"></site-explorer>
+					</iron-pages>
+				</div>
 			</div>
 		</paper-drawer-panel>
-		
+	
+		<!-- Toast to display routing errors -->
 		<paper-toast id="routeToast"></paper-toast>
+		<!-- Toast to display when data has been refreshed from the server -->
 		<paper-toast id="refreshToast" text="Refreshed data."></paper-toast>
 
 		<iron-media-query query="(max-width: 1280px)" query-matches="{{_showMenuBtn}}"></iron-media-query>
@@ -76,60 +110,63 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'mapit-app',
 
 				properties: {
+					/* Page title. By default just display the application name,
+					   but override to display things like library locations from
+					   inside elements. */
 					title: {
 						type: String,
 						value: 'MapIT'
 					},
+					/* Is the main nav drawer open? TODO: Move inside paper-drawer */
 					drawerOpen: {
 						type: Boolean,
 						value: false
 					},
+					/* When did we last get an API response? When it changes,
+					   display a toast telling the user we updated the data */
 					responseAt: {
 						type: String,
 						observer: 'responseAtChanged'
 					},
 
+					/* Selected site name, ie. Baillieu 
+					   Waits until drawer animation finishes to update actual
+					   site variable in the bookit-data element in order to
+					   prevent animation jank. */
 					_site: {
 						type: String,
 						value: null
 					},
+					/* Page to select after drawer animation finishes. Summary
+					   or an actual site */
 					_selected: {
 						type: String,
 						value: null
 					},
-
+					/* Displaying the search box at the moment? True - display */
 					_searching: {
 						type: Boolean,
 						value: false
 					}
 				},
-				behaviors: [
-					Polymer.IronResizableBehavior
-				],
-				listeners: {
-					'iron-resize': 'resize'
-				},
 
 				responseAtChanged: function() {
+					/* Display a toast to tell the user data has updated */
 					this.$.refreshToast.show();
 				},
 
 				attached: function() {
-					this.resize();
-
+					/* this means something else inside setInterval, so use that */
 					var that = this;
+					/* Refresh data every 60 seconds */
 					setInterval(function() {
 						that.refresh = true;
 					}, 60000);
 
+					/* Close nav drawer when an item is selected */
 					document.querySelector('site-list').addEventListener('tap-item', function() {
 						that.$.navDrawerPanel.closeDrawer();
 					});
-				},
-
-				resize: function() {
-					var toolbarHeight = this.$.pageToolbar.clientHeight;
-					document.getElementById('allLibSum').style.height = (window.innerHeight - toolbarHeight) + 'px';
 				},
 
 				_onDrawerAnimationFinish: function(e) {
@@ -167,9 +204,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_onMainDrawerSelect: function(e, detail) {
+					// Are we viewing a site page or the summary?
 					var librarySelected = document.getElementById('iPages').selected === 'library';
 
+					// If either panel is part of the drawer (sometimes weird things happen..)
 					if (detail.item.id === 'main' || detail.item.id === 'drawer') {
+						// If the drawer isn't open and we are viewing a library then show
+						// the back button
 						var hidden = !(detail.item.id === 'main' && librarySelected);
 						document.getElementById('back_arrow').hidden = hidden;
 
@@ -186,6 +227,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_tapSearch: function() {
+					// Toggle the search bar
 					this._searching = !this._searching;
 				}
 			});
