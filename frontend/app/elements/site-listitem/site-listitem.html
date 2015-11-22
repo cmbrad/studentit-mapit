@@ -54,7 +54,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			}
 		</style>
 
-		<a data-route="[[route]]" href="[[href]]">
+		<a data-route="[[route]]" href="[[_href]]">
 			<paper-item>
 				<template is="dom-if" if="[[icon]]">
 					<iron-icon icon="[[icon]]"></iron-icon>
@@ -72,18 +72,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'site-listitem',
 
 				properties: {
+					/* Name of the route defined in routing.html to go to
+					   when this item is tapped */
 					route: {
 						type: String,
 					},
-					href: {
-						type: String,
-						computed: '_computeHref(route)'
-					},
+					/* Icon to display in the list item. Can be blank. */
 					icon: {
 						type: String,
 					},
+					/* Text to display in the list item. */
 					text: {
 						type: String,
+					},
+					/* URL to navigate to when the item is tapped */
+					_href: {
+						type: String,
+						computed: '_computeHref(route)'
 					}
 				},
 

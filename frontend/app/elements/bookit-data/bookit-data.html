@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			params='{{params}}'
 			handle-as="json"
 			last-response="{{sites}}"
-			last-error="{{bookitError}}"
 			on-response='_onResponse'>
 		</iron-ajax>
 	</template>
@@ -28,43 +27,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			is: 'bookit-data',
 
 			properties: {
+				/* Output. List of sites/locations/resources returned by the BookIT API */
 				sites: {
 					type: Object,
 					notify: true,
 					value: [],
 					observer: '_sitesChanged'
 				},
-
+				/* Name of the particular site to load from the bookit API. */
 				site: {
 					type: String,
 					notify: true,
 					value: '',
 					observer: '_siteChanged'
 				},
-
+				/* Is an API request in flight at the moment? */
 				isLoading: {
 					type: Boolean,
 					value: true,
 					notify: true
 				},
-
+				/* BookIT ID number correspondign to the site name in 'site' */
 				siteID: {
 					type: String,
 					computed: 'getSiteID(site)'
 				},
-
+				/* Parameters to send with the ajax request. Used to send the URL to our proxy. */
 				params: {
-					type: Object,
-					value: {name: ''}
+					type: Object
 				},
-
+				/* Workaround for lack of remote method calling (that I could find anwyay...)
+				   when set to true, start a refresh and toggle back to false */
 				refresh: {
 					type: Boolean,
 					value: false,
 					notify: true,
 					observer: '_refreshChanged'
 				},
-
+				/* Time at which last API response was received */
 				responseAt: {
 					type: String,
 					value: 'Never',
@@ -73,6 +73,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			},
 
 			_refreshChanged: function(refresh) {
+				// When toggled to true, start a refresh
 				if (refresh) {
 					console.log('Refreshing site ' + this.site);
 					this.$.bookitAjax.generateRequest();
@@ -80,9 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				}
 			},
 
-			_siteChanged: function(site) {
-				console.log('Setting site to ' + site);
+			_siteChanged: function() {
+				// Reset data to be nothing
 				this.sites = [];
+				/* We use an API proxy to get around CORS restrictions. Therefore we pass the URL we actually
+				   want in as a parameter */
 				this.params = {
 					'url': 'https://bookit.unimelb.edu.au/MyPC/Front.aspx?page=getResourceStatesAPI&siteId=' + this.getSiteID(this.site),
 				};
@@ -91,6 +94,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			},
 
 			_sitesChanged: function(newSites) {
+				// If we have data then assume loading is over!
 				if (newSites === null || newSites.length === 0) {
 					this.isLoading = true;
 				} else {

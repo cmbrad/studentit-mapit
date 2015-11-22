@@ -41,6 +41,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				align-items: center;
 			}
 
+			/* Used as the resource icon for now. Changes colours
+			   based on resource status */
 			.avatar {
 				display: inline-block;
 				width: 40px;
@@ -121,27 +123,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'site-summary',
 
 				properties: {
+					/* All data */
 					sites: {
 						type: Object,
 						value: [],
 						observer: '_sitesChanged'
 					},
-
+					/* Data to display. Currently removes all non-available computers */
 					filteredSites: {
 						type: Object,
 						value: []
 					},
-
+					/* Is data still loading? */
 					isLoading: {
 						type: Boolean,
 						value: true 
 					},
-	
+					/* Resource selected which is then zoomed in on in the map */
 					resource: {
 						type: String,
 						notify: true
 					},
 
+					/* Is the screen less than 432 pixels wide? */
 					_isNarrow: {
 						type: Boolean,
 						observer: '_isNarrowChanged'
@@ -149,7 +153,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_isNarrowChanged: function(isNarrow) {
-					console.log(isNarrow);
+					// When the screen is narrow cards take up the full width
+					// of the screen to save space.
 					var cards = document.getElementsByTagName('paper-card');
 					for (var i = 0; i < cards.length; i++) {
 						if (isNarrow) {
@@ -167,6 +172,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				},
 
 				_sitesChanged: function(sites) {
+					// On receiving new data we then filter it to only 
+					// keep what we want to display
+
 					var filtered = JSON.parse(JSON.stringify(sites));
 
 					for (var s = 0; s < sites.length; s++) {
@@ -178,6 +186,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 							for (var r = loc.resources.length - 1; r >= 0; r--) {
 								var resource = loc.resources[r];
 
+								// If the resource is not available we don't want it
 								if (resource && resource.state !== 'AVAILABLE') {
 									loc.resources.splice(r, 1);
 								}	
@@ -190,6 +199,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 				_listTap: function(e) {
 					this.fire('resourceTap');
+					// Force the change handler to run by setting
+					// to empty first
 					this.resource = '';
 					this.resource = e.target.textContent;
 				},

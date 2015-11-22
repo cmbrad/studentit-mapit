@@ -37,6 +37,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				background-color: #036;
 				color: #fff;
 			}
+
+			#wrapper {
+				display: flex;
+			}
 		</style>
 
 		<map-data data-response="{{mapData}}" site="[[site]]"></map-data>
@@ -46,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			<paper-tab>Map</paper-tab>
 		</paper-tabs>
 
-		<div class="flex" style="display: flex;">
+		<div id="wrapper" class="flex">
 			<neon-animated-pages class="flex" selected="[[selected]]" entry-animation="[[_entryAnimation]]" exit-animation="[[_exitAnimation]]">
 				<site-summary sites="[[sites]]" resource="{{resource}}" is-loading="[[isLoading]]"></site-summary>
 				<bookit-map site="[[site]]" focus-resource="[[resource]]" resources="[[sites]]" map-data="[[mapData]]"></bookit-map>
@@ -62,28 +66,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'site-explore',
 
 				properties: {
+					/* Name of the site to view */
 					site: {
 						type: String
 					},
+					/* Data to display */
 					sites: {
 						type: Object,
 						value: []
 					},
+					/* Tab selected. Summary or map */
 					selected: {
 						type: Number,
 						value: 0,
 						observer: '_selectedChanged'
 					},
+					/* Are we still loading data from bookit? */
 					isLoading: {
 						type: Boolean,
 						value: true 
 					},
 
+					/* Animations to play when switching between tabs */
 					_entryAnimation: {
 						type: String,
 						value: ''
 					},
-
 					_exitAnimation: {
 						type: String,
 						value: ''
