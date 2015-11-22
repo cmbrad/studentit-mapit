@@ -64,20 +64,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'map-levelselector',
 
 				properties: {
+					/* Input. mapData contains information about what levels
+					   exist in a location. Key information in a level selector
+					   eh? */
 					mapData: {
 						type: Object,
 						observer: '_mapDataChanged'
 					},
+					/* Currently selected level represented as an index into
+					   the list of levels rather than the level itself. Simplifies
+					   logic when selecting the first level which we do relatively often */
 					selected: {
 						type: Number,
 						value: 0,
 						notify: true
 					},
 
+					/* Is the screen in a narrow configuration? (<432px?) */
 					_isNarrow: {
 						type: Boolean,
 						observer: '_isNarrowChanged'
 					},
+					/* List of levels parsed from the mapData object. */
 					_levels: {
 						type: Object,
 						value: []
@@ -106,6 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					}, 100);
 				},
 
+				/* On narrow screens the level selector should take up the full width */
 				_isNarrowChanged: function(isNarrow) {
 					this.$.levelCard.style.width = isNarrow ? '100%' : '400px';
 				}

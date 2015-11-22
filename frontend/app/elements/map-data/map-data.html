@@ -19,7 +19,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			url="[[_url]]"
 			params="[[_params]]"
 			handle-as="json"
-			last-error="{{dataError}}"
 			last-response="{{dataResponse}}">
 		</iron-ajax>
 	</template>
@@ -32,27 +31,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				is: 'map-data',
 
 				properties: {
+					/* Name of the site to load data for.
+					   Data will be loaded from site.json */
 					site: {
 						type: String,
 						observer: '_siteChanged'
 					},
-					dataError: {
-						type: Object,
-						notify: true
-					},
+					/* Data retrieved from the server using
+					   iron-ajax. Basically an output. */
 					dataResponse: {
 						type: Object,
 						notify: true
 					},
+
+					/* Parameters to send with the request.
+					   Attach a timestamp to block caching for now
+					   to ensure that map updates don't take forever
+					   to actually happen. May disable in production */
 					_params: {
 						type: Object
 					},
+					/* URL to request to get the data */
 					_url: {
 						type: String
 					}
 				},
 
 				_siteChanged: function(site) {
+					// Only request real sites. There's no generic
+					// catch all dataset here
 					if (!site || site === '') {
 						return;
 					}
@@ -62,12 +69,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 					var mm = today.getMonth() + 1;
 					var yyyy = today.getFullYear();
 
+					// Static json based on site name. Not very extensible
+					// but it works for now.
 					this._url = 'http://mapit.cy.id.au/maps/' + site + '.json';
 
+					/* Append the date to all requests to ensure caching refreshes
+					   at least once a day. Getting map data stuck is no fun... */
 					this._params = {
 						timestamp: ('' + mm + dd + yyyy)
 					};
 
+					// Ask the server for our data!
 					this.$.data.generateRequest();
 				}
 			});
