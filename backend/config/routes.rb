@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'resource/index'
+
+  get 'resource/show'
+
+  get 'library' => 'library#index'
+  get 'library/:id' => 'library#show'
+
+  get 'resource' => 'resource#index'
+  get 'resource/:id' => 'resource#show'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
