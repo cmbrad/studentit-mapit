@@ -1,5 +1,5 @@
 class LibraryController < ApplicationController
-  before_action :set_library, only: [:show]
+  before_action :set_library, only: [:show, :levels, :resources, :map]
 
   def index
     @libraries = Library.all
@@ -9,6 +9,21 @@ class LibraryController < ApplicationController
 
   def show
     render json: {libraries: @library}
+  end
+
+  def levels
+    @levels = Level.where(library: @library)
+    render json: {levels: @levels}
+  end
+
+  def resources
+    @levels = Level.where(library: @library)
+    @levels.each do |level|
+      #level.
+    end
+  end
+
+  def map
   end
 
   ###########
