@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'resource/index'
-
-  get 'resource/show'
-
   get 'library' => 'library#index'
   get 'library/:id' => 'library#show'
 
