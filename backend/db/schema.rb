@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122045246) do
+ActiveRecord::Schema.define(version: 20151126084738) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 20151122045246) do
     t.string   "bookit_id"
     t.string   "bookit_name"
     t.integer  "site_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "locations", ["site_id"], name: "index_locations_on_site_id"
@@ -73,18 +73,20 @@ ActiveRecord::Schema.define(version: 20151122045246) do
     t.string   "bookit_name"
     t.integer  "location_id"
     t.integer  "category_id"
+    t.integer  "level_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   add_index "resources", ["category_id"], name: "index_resources_on_category_id"
+  add_index "resources", ["level_id"], name: "index_resources_on_level_id"
   add_index "resources", ["location_id"], name: "index_resources_on_location_id"
 
   create_table "sites", force: :cascade do |t|
     t.string   "bookit_id"
     t.string   "bookit_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end
