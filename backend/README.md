@@ -154,3 +154,16 @@ Returns a list of all information for the specified library.
 	]
 }
 ```
+
+### Summary
+/summary/levels  
+```
+```
+
+/summary/categories  
+```
+```
+
+/summary/locations  
+```
+```
