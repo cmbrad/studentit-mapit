@@ -1,4 +1,14 @@
 # MapIT Backend API
+## Description
+REST API designed to supply data to the frontend Polymer based MapIT application.  
+Implemented using the rails-api gem, hopefully will switch to Rails 5 where it's inbuilt once it finally releases.
+
+## Setup
+1. bundle install  
+2. rake db:setup  
+3. rake bookit:import  
+4. rake db:seed  
+
 ## Routes
 ### Library
 /library  
