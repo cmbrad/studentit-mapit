@@ -120,3 +120,37 @@ Returns a list of all information for the specified library.
 ```
 
 ```
+
+### Coordinates
+/coordinate/<coordinate_id>  
+```
+
+```
+
+### Library
+/library/<library_id>/levels/resources?level_id=<level_id>  
+```
+{
+	"libraries": [
+		{
+			"id": 0,
+			"name": "Baillieu",
+			"levels": [
+				{
+					"name": "G",
+					"order": 1,
+					"resources": [
+						{
+							"name": "G-01",
+							"state": "AVAILABLE"
+						},
+						...
+					]
+				},
+				...
+			]
+		},
+		...
+	]
+}
+```
