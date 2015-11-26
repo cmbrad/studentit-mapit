@@ -39,7 +39,8 @@ ActiveRecord::Schema.define(version: 20151122045246) do
   add_index "libraries", ["site_id"], name: "index_libraries_on_site_id"
 
   create_table "locations", force: :cascade do |t|
-    t.string   "name"
+    t.string   "bookit_id"
+    t.string   "bookit_name"
     t.integer  "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -68,18 +69,20 @@ ActiveRecord::Schema.define(version: 20151122045246) do
   add_index "maps", ["level_id"], name: "index_maps_on_level_id"
 
   create_table "resources", force: :cascade do |t|
-    t.string   "name"
+    t.string   "bookit_id"
+    t.string   "bookit_name"
     t.integer  "location_id"
+    t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "category_id"
   end
 
   add_index "resources", ["category_id"], name: "index_resources_on_category_id"
   add_index "resources", ["location_id"], name: "index_resources_on_location_id"
 
   create_table "sites", force: :cascade do |t|
-    t.string   "name"
+    t.string   "bookit_id"
+    t.string   "bookit_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
