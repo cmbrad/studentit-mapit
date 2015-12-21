@@ -3,6 +3,11 @@ class Level < ActiveRecord::Base
   has_many :resources
 
   def as_json(options={})
-    super(only: [:name, :order])
+    super(only: [:id, :name, :order],
+          methods: [:resources])
+  end
+
+  def resources
+    Resource.where(level_id: self.id)
   end
 end
