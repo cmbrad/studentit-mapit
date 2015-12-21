@@ -12,8 +12,7 @@ class LibraryController < ApplicationController
   end
 
   def levels
-    @levels = Level.where(library: @library)
-    render json: {levels: @levels}
+    render json: {levels: @library.levels}
   end
 
   # GET /library/<library_id>/levels/resources?level_id=<level_id>
