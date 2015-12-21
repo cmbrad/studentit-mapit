@@ -4,11 +4,11 @@ class ResourceController < ApplicationController
   def index
     @resources= Resource.all
 
-    render json: {resources: @resources}
+    render json: @resources
   end
 
   def show
-    render json: {resources: @resource}
+    render json: @resource
   end
 
   ###########

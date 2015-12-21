@@ -4,15 +4,15 @@ class LibraryController < ApplicationController
   def index
     @libraries = Library.all
 
-    render json: {libraries: @libraries}
+    render json: @libraries
   end
 
   def show
-    render json: {libraries: @library}
+    render json: @library
   end
 
   def levels
-    render json: {levels: @library.levels}
+    render json: @library.levels
   end
 
   # GET /library/<library_id>/levels/resources?level_id=<level_id>
