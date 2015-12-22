@@ -3,6 +3,13 @@ class Resource < ActiveRecord::Base
   belongs_to :level
 
   def as_json(options={})
-    super(only: [:id, :bookit_name, :location_id])
+    super(only: [:id, :bookit_name, :location_id, :level_id],
+          methods: [:library_id])
+  end
+
+  def library_id
+    if not self.level.nil?
+      self.level.library_id
+    end
   end
 end
